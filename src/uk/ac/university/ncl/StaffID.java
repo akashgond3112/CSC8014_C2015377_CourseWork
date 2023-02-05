@@ -1,64 +1,34 @@
 package uk.ac.university.ncl;
 
-import java.util.HashSet;
+import java.util.Random;
 
 public class StaffID {
 
-
-    private char letter;
-    private int number;
-    private static HashSet<String> existingIDs = new HashSet<>();
-
-    public StaffID( ) {
-    }
-
-    public StaffID(char letter, int number) {
-        this.letter = letter;
-        this.number = number;
-
-        String id = letter + Integer.toString(number);
-        if (existingIDs.contains(id)) {
-            throw new IllegalArgumentException("Staff ID already exists: " + id);
-        }
-        existingIDs.add(id);
-    }
-
-    public char getLetter() {
-        return letter;
-    }
-
-    public int getNumber() {
-        return number;
-    }
+    private String staffId;
 
     @Override
     public String toString() {
-        return letter + Integer.toString(number);
+        return staffId;
     }
 
+    public StaffID() {
+        this.generateStaffId();
+    }
+
+
     /*
-     * @param staffId
-     * This method uses the length() method of the String class to check if the
-     * string is 4 characters long, and then checks the first character using
-     * Character.isLetter(char) to see if it's a letter. Finally, it uses a loop to
-     * check the next three characters using Character.isDigit(char) to see if they
-     * are digits. If all of these checks pass, the method returns true.
+     This code generates a random number between 97 and 122 (corresponding to the ASCII values for the letters 'a' to 'z') using the Random class,
+     and then converts that number to a letter by casting it to a char. A second random number between 1 and 999 is generated and formatted with leading zeros.
+     The resulting letter and number are concatenated to produce the final output.
      */
 
-    private static boolean validate(String staffId) {
-        if (staffId.length() != 4) {
-            return false;
-        }
-        char first = staffId.charAt(0);
-        if (!Character.isLetter(first)) {
-            return false;
-        }
-        for (int i = 1; i < 4; i++) {
-            if (!Character.isDigit(staffId.charAt(i))) {
-                return false;
-            }
-        }
-        return true;
+    private void generateStaffId() {
+        Random rand = new Random();
+        int letterInt = rand.nextInt(26) + 97; // generate a random number between 97 and 122 (corresponding to ASCII values for 'a' to 'z')
+        char letter = (char) letterInt; // convert the integer to a letter
+        int number = rand.nextInt(999) + 1; // generate a random number between 1 and 999
+        this.staffId = letter + String.format("%03d", number); // format the number with leading zeros
+
     }
 
 

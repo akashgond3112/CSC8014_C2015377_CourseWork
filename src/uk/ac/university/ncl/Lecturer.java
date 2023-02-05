@@ -40,10 +40,6 @@ public final class Lecturer extends AbstractStaff {
         }
     }
 
-    public int getMAX_CREDITS() {
-        return MAX_CREDITS;
-    }
-
     /**
      * @see AbstractStaff#AbstractStaff(Name,String, SmartCard, StaffID)
      */

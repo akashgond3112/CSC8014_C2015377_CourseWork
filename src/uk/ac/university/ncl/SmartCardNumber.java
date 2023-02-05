@@ -7,7 +7,8 @@ public class SmartCardNumber {
 
     private String smartCardNumber;
 
-    public String getSmartCardNumber() {
+    @Override
+    public String toString() {
         return smartCardNumber;
     }
 
