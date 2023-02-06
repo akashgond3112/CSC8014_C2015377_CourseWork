@@ -48,7 +48,7 @@ public abstract class AbstractStaff implements Staff {
      * @return the Name object
      */
     public Name getName() {
-        return name;
+        return this.name;
     }
 
     /**

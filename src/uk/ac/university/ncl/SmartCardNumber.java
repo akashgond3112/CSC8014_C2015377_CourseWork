@@ -1,23 +1,36 @@
 package uk.ac.university.ncl;
 
 import java.util.Calendar;
+import java.util.Objects;
 
 public class SmartCardNumber {
 
 
     private String smartCardNumber;
 
+    public SmartCardNumber(Name name) {
+        setSmartCardNumber(generateSmartCardNumber(name));
+    }
+
     @Override
     public String toString() {
         return smartCardNumber;
     }
 
-    public void setSmartCardNumber(String smartCardNumber) {
-        this.smartCardNumber = smartCardNumber;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SmartCardNumber that)) return false;
+        return smartCardNumber.equals(that.smartCardNumber);
     }
 
-    public SmartCardNumber(Name name) {
-        setSmartCardNumber(generateSmartCardNumber(name));
+    @Override
+    public int hashCode() {
+        return Objects.hash(smartCardNumber);
+    }
+
+    public void setSmartCardNumber(String smartCardNumber) {
+        this.smartCardNumber = smartCardNumber;
     }
 
     private static String generateSmartCardNumber(Name name) {
