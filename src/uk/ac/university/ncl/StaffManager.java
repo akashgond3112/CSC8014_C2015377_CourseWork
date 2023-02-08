@@ -85,9 +85,7 @@ public class StaffManager {
 
         Name name = new Name(firstName, lastName);
 
-        StaffID staffID = new StaffID();
-        if (existingStaffIDs.contains(staffID)) return null;
-
+        StaffID staffID = StaffID.getInstance();
 
         if (staffType.equals("Lecturer")) {
             staff = new Lecturer(new Name(firstName, lastName), employmentStatus, null, staffID);
@@ -97,9 +95,7 @@ public class StaffManager {
             return null;
         }
 
-        SmartCardNumber smartCardNumber = new SmartCardNumber(name);
-        if (existingSmartCardNumbers.contains(smartCardNumber)) return null;
-
+        SmartCardNumber smartCardNumber = SmartCardNumber.getInstance(name);
 
         if (checkSmartCardEligibility(staff, dob)) {
             SmartCard smartCard = new SmartCard(employmentStatus, name, smartCardNumber, dob);
@@ -143,6 +139,8 @@ public class StaffManager {
 
         Set<Staff> staff = staffs.stream().filter(stf -> stf.getStaffID().equals(id)).collect(Collectors.toSet());
 
+        staff = null;
+
         if (staff.stream().findFirst().get().getClass().isInstance(Lecturer.class)) {
             Lecturer lecturer = (Lecturer) staff.stream().findFirst().get();
             try {
@@ -174,8 +172,8 @@ public class StaffManager {
 
     /**
      * @param id, expect the StaffID object as param
-     *  This method removes the staff record associated with the given staff id. In
-     *  effect, the staff is leaving the University.
+     *            This method removes the staff record associated with the given staff id. In
+     *            effect, the staff is leaving the University.
      */
     public void terminateStaff(StaffID id) {
         Set<Staff> staff = staffs.stream().filter(stf -> stf.getStaffID().equals(id)).collect(Collectors.toSet());
