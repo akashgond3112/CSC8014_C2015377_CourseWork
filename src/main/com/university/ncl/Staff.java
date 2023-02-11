@@ -1,4 +1,4 @@
-package uk.ac.university.ncl;
+package main.com.university.ncl;
 
 /** 
  * Staff - interface to university staff.

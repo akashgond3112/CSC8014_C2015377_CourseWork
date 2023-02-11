@@ -1,7 +1,6 @@
-package uk.ac.university.ncl;
+package main.com.university.ncl;
 
 import java.time.LocalDate;
-import java.util.Calendar;
 import java.util.Date;
 
 public class SmartCard {

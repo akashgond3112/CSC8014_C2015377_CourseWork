@@ -1,4 +1,4 @@
-package uk.ac.university.ncl;
+package main.com.university.ncl;
 
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -6,13 +6,16 @@ import java.io.File;
 import java.util.stream.Collectors;
 
 
+/**
+ * The StaffManager class is the driver class for the university system. It needs to:
+ * • Maintain a record of all staff with their staffID
+ * • Maintain a record of all Students and Modules in the university
+ */
 public class StaffManager {
 
-    private static HashSet<Staff> staffs = new HashSet<>();
-    private static HashSet<StaffID> existingStaffIDs = new HashSet<>();
-    private static HashSet<SmartCardNumber> existingSmartCardNumbers = new HashSet<>();
-    Set<Module> moduleList = new HashSet<>();
-    Set<Name> studentList = new HashSet<>();
+    private static final HashSet<Staff> staffs = new HashSet<>();
+    Set<Module> moduleSet = new HashSet<>();
+    Set<Name> studentNameSet = new HashSet<>();
 
 
     /**
@@ -26,6 +29,8 @@ public class StaffManager {
      */
     public Set<Module> readInModules(String path) {
         //add your code here. Do NOT change the method signature
+        if (path.isEmpty())
+            throw new IllegalArgumentException("Path cannot be empty!");
         try {
             Scanner readCsv = new Scanner(new File(path));
             while (readCsv.hasNextLine()) {
@@ -33,7 +38,7 @@ public class StaffManager {
                 String[] lineArray = line.split(","); // split the sentences using String split inbuilt method.
 
                 // adding the Exhibit object to the list of the exhibits.
-                moduleList.add(new Module(lineArray[0], lineArray[1], Integer.parseInt(lineArray[2]), Integer.parseInt(lineArray[3])));
+                moduleSet.add(new Module(lineArray[0], lineArray[1], Integer.parseInt(lineArray[2]), Integer.parseInt(lineArray[3])));
 
             }
             readCsv.close(); // closing the Scanner class
@@ -41,7 +46,7 @@ public class StaffManager {
         } catch (FileNotFoundException fileNotFoundException) {
             System.out.println(fileNotFoundException.getMessage()); // catching the exception .
         }
-        return moduleList;
+        return moduleSet;
     }
 
     /**
@@ -54,6 +59,9 @@ public class StaffManager {
      */
     public Set<Name> readInStudents(String path) {
         //add your code here. Do NOT change the method signature
+        if (path.isEmpty())
+            throw new IllegalArgumentException("Path cannot be empty!");
+
         try {
             Scanner readCsv = new Scanner(new File(path));
             while (readCsv.hasNextLine()) {
@@ -61,19 +69,19 @@ public class StaffManager {
                 String[] lineArray = line.split(","); // split the sentences using String split inbuilt method.
 
                 // adding the Exhibit object to the list of the exhibits.
-                studentList.add(new Name(lineArray[0], lineArray[1]));
+                studentNameSet.add(new Name(lineArray[0], lineArray[1]));
             }
             readCsv.close(); // closing the Scanner class
 
         } catch (FileNotFoundException fileNotFoundException) {
             System.out.println(fileNotFoundException.getMessage()); // catching the exception .
         }
-        return studentList;
+        return studentNameSet;
     }
 
     /**
-     * @param firstName        , expect first name to be passed e.g Akash
-     * @param lastName         , expect last name to be passed e.g Gond
+     * @param firstName        , expect first name to be passed e.g. Akash
+     * @param lastName         , expect last name to be passed e.g. Gond
      * @param dob              , expect a Date Object to passed as params
      * @param staffType        , expect String as param, it can be either Lecturer or Researcher
      * @param employmentStatus , expect String a param, it can be either permanent or fixed
@@ -81,32 +89,40 @@ public class StaffManager {
      */
     public Staff employStaff(String firstName, String lastName, Date dob, String staffType, String employmentStatus) {
         //add your code here. Do NOT change the method signature
-        Staff staff = null;
 
+        // check for null possibilities for all the params
+        if (firstName.isEmpty() || lastName.isEmpty() || dob == null || staffType == null || employmentStatus == null)
+            throw new NullPointerException("Please check the parameter provided!");
+
+        // create a name object
         Name name = new Name(firstName, lastName);
 
+        // generate a staff ID
         StaffID staffID = StaffID.getInstance();
 
-        if (staffType.equals("Lecturer")) {
-            staff = new Lecturer(new Name(firstName, lastName), employmentStatus, null, staffID);
-        } else if (staffType.equals("Researcher")) {
-            staff = new Researcher(new Name(firstName, lastName), employmentStatus, null, staffID);
-        } else {
-            return null;
-        }
+        // create a staff object based on the staff type
+        Staff staff = AbstractStaff.getInstance(staffType, name, employmentStatus, staffID);
 
+        // once the staff is generated , we will create the SmartCard number
         SmartCardNumber smartCardNumber = SmartCardNumber.getInstance(name);
 
+        // Here we will call the criteria before creating the smart card,which will return boolean value
         if (checkSmartCardEligibility(staff, dob)) {
-            SmartCard smartCard = new SmartCard(employmentStatus, name, smartCardNumber, dob);
-            if (staffType.equals("Lecturer")) {
+            SmartCard smartCard = new SmartCard(employmentStatus, name, smartCardNumber, dob); // create the smart card object , if the criteria satisfy
+
+            // check the staff type based on that we creat an object of  staff and cast it, so that we can call the setSmartCard method from the
+            // Abstract class i.e. StaffManager where it is defined
+            if (staffType.equals(Lecturer.LECTURER)) {
                 Lecturer lecturer = (Lecturer) staff;
                 lecturer.setSmartCard(smartCard);
-            } else {
+            } else if (staffType.equals(Researcher.RESEARCHER)) {
                 Researcher researcher = (Researcher) staff;
                 researcher.setSmartCard(smartCard);
+            } else {
+                throw new IllegalArgumentException("Invalid staff type!");
             }
         }
+        // creat a record of all the staff employed
         staffs.add(staff);
         return staff;
     }
@@ -134,28 +150,41 @@ public class StaffManager {
     public boolean addData(StaffID id, Set<Module> modules, Set<Name> students) {
         //add your code here. Do NOT change the method signature
 
-        if (modules.size() == 0 || !moduleList.containsAll(modules)) return false;
-        if (studentList.size() == 0 || !studentList.containsAll(students)) return false;
+        //check if there is an employee's enrolled or not e.g. Lecturer or Researchers
+        if (staffs == null)
+            throw new NullPointerException("There is no staff employed currently please employ a staff first.");
 
-        Set<Staff> staff = staffs.stream().filter(stf -> stf.getStaffID().equals(id)).collect(Collectors.toSet());
+        // First check if the id is not null
+        if (id == null)
+            throw new NullPointerException("Staff Id cannot be null!, Please check your input");
 
-        staff = null;
+        // check if the size of the modules and student is not empty
+        if (modules.size() == 0 || studentNameSet.size() == 0)
+            throw new IllegalArgumentException("Modules or student cannot be empty, Module : {" + modules.size() + "}, Students : {" + students.size() + "}.");
 
-        if (staff.stream().findFirst().get().getClass().isInstance(Lecturer.class)) {
-            Lecturer lecturer = (Lecturer) staff.stream().findFirst().get();
-            try {
-                if (!lecturer.getTotalNoOfCredits()) lecturer.setModuleSet(modules);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        } else if (staff.stream().findFirst().get().getClass().isInstance(Researcher.class)) {
-            Researcher researcher = (Researcher) staff.stream().findFirst().get();
-            try {
-                if (!researcher.getNoOfStudentSupervised()) {
-                    researcher.setListOfStudent(students);
+        // check if modules exist or not.
+        if (!moduleSet.containsAll(modules) || !studentNameSet.containsAll(students))
+            throw new IllegalArgumentException("Either Modules or student doesn't match the read input file, please check!");
+
+        for (Staff staff : staffs) {
+
+            if (staff.getStaffID().equals(id) && staff instanceof Lecturer lecturer) {
+
+                if (!((Lecturer) staff).isTotalCreditFulfilled()) {
+                    lecturer.setModuleSet(modules);
+                    return true;
+                } else {
+                    throw new IllegalArgumentException("");
                 }
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+
+            } else if (staff.getStaffID().equals(id) && staff instanceof Researcher researcher) {
+
+                if (!researcher.getNoOfStudentSupervised()) {
+                    researcher.setNameSet(students);
+                    return true;
+                }
+            } else {
+                throw new IllegalArgumentException("Cannot find the matching staffID Object");
             }
         }
         return false;

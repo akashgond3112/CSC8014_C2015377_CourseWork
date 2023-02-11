@@ -1,4 +1,4 @@
-package uk.ac.university.ncl;
+package main.com.university.ncl;
 
 import java.util.Objects;
 
@@ -48,7 +48,7 @@ public class Name {
 
     @Override
     public String toString() {
-        return "Name{}";
+        return this.firstName+" "+ this.lastName;
     }
 
     public Name(String firstName, String lastName) {
