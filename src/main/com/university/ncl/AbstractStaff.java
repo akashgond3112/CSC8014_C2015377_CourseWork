@@ -29,22 +29,24 @@ public abstract class AbstractStaff implements Staff {
         this.staffID = staffID;
     }
 
-    public static Staff getInstance(String staffType, Name name, String contractType, StaffID staffID) {
+    public static Staff getInstance(String staffType, Name name, String contractType) {
 
+        // generate a staff ID
+        final StaffID staffID = StaffID.getInstance();
+
+        // check is staffId already exist
         Staff staff = staffMap.get(staffID);
 
+        // if not null return matching staff
         if (staff != null) return staff;
 
         if (staffType.equals(LECTURER)) {
             staff = new Lecturer(name, contractType, staffID);
-        } else if (staffType.equals(RESEARCHER)) {
-            staff = new Researcher(name, contractType, staffID);
         } else {
-            throw new IllegalArgumentException("Invalid staff type!");
+            staff = new Researcher(name, contractType, staffID);
         }
 
         staffMap.put(staffID, staff);
-
         return staff;
     }
 

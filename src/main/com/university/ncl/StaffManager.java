@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  */
 public class StaffManager {
 
-    private static final HashSet<Staff> staffs = new HashSet<>();
+    HashSet<Staff> staffs = new HashSet<>();
     Set<Module> moduleSet = new HashSet<>();
     Set<Name> studentNameSet = new HashSet<>();
 
@@ -121,26 +121,22 @@ public class StaffManager {
             throw new InputMismatchException("The provided date of birth is not meeting the criteria. Age should be between 22-67.");
 
         // create a name object
-        Name name = new Name(firstName, lastName);
-
-        // generate a staff ID
-        StaffID staffID = StaffID.getInstance();
+        final Name name = new Name(firstName, lastName);
 
         // create a staff object based on the staff type
-        Staff staff = AbstractStaff.getInstance(staffType, name, employmentStatus, staffID);
-
+        final Staff staff = AbstractStaff.getInstance(staffType, name, employmentStatus);
 
         // Here we will call the criteria before creating the smart card,which will return boolean value
         if (checkSmartCardEligibility(staff, dob)) {
-            SmartCard smartCard = new SmartCard(employmentStatus, name, dob); // create the smart card object , if the criteria satisfy
+            final SmartCard smartCard = new SmartCard(employmentStatus, name, dob); // create the smart card object , if the criteria satisfy
 
             // check the staff type based on that we creat an object of  staff and cast it, so that we can call the setSmartCard method from the
             // Abstract class i.e. StaffManager where it is defined
             if (staffType.equals(Lecturer.LECTURER)) {
-                Lecturer lecturer = (Lecturer) staff;
+                final Lecturer lecturer = (Lecturer) staff;
                 lecturer.setSmartCard(smartCard);
             } else {
-                Researcher researcher = (Researcher) staff;
+                final Researcher researcher = (Researcher) staff;
                 researcher.setSmartCard(smartCard);
             }
         }
@@ -156,7 +152,13 @@ public class StaffManager {
      * researcher) that are currently employed
      */
     public int noOfStaff(String type) {
-        return (int) staffs.stream().filter(staff -> staff.getStaffType().equals(type)).count();
+        int counter = 0;
+        for (Staff staff : staffs) {
+            if (staff.getStaffType().equals(type)) {
+                counter++;
+            }
+        }
+        return counter;
     }
 
     /**
