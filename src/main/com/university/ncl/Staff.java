@@ -43,5 +43,12 @@ public interface Staff {
 	 */
     String getStaffType();
 
+	/**
+	 * Returns the Name.
+	 * All staff must have a Name
+	 * @return the Name object
+	 */
+	Name getName();
+
     
 }

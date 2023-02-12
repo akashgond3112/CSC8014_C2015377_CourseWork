@@ -1,5 +1,6 @@
 package main.com.university.ncl;
 
+import java.util.HashSet;
 import java.util.InputMismatchException;
 import java.util.Set;
 
@@ -20,7 +21,7 @@ public final class Lecturer extends AbstractStaff {
     final static String LECTURER = "Lecturer";
     private int totalCredits;
 
-    private Set<Module> moduleSet;
+    private final Set<Module> moduleSet = new HashSet<>();
 
     /**
      * @see main.com.university.ncl.AbstractStaff#AbstractStaff(Name, String, StaffID)
@@ -45,7 +46,8 @@ public final class Lecturer extends AbstractStaff {
             if (this.totalCredits < MAX_CREDITS) {
                 setModule(module);
             } else {
-                throw new InputMismatchException("Lecturer is already assigned with max no. of credits! i.e " + totalCredits + " for the course");
+                System.out.println("Lecturer is already reached with max no. of credits! i.e " + totalCredits + " for the course. So now skipping rest of the modules.");
+                break;
             }
         }
     }
@@ -60,7 +62,7 @@ public final class Lecturer extends AbstractStaff {
             moduleSet.add(module);
             totalCredits += module.getCreditScore();
         } else {
-            System.out.println(module.getName() + " is already assigned to the Lectures , so Skipping it.");
+            System.out.println(module.getName() + " is already assigned to the Lectures , so now skipping the module.");
         }
     }
 

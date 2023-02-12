@@ -186,13 +186,9 @@ public class StaffManager {
             throw new NullPointerException("Cannot find the matching staffID Object");
 
         if (staff instanceof Lecturer) {
-            // check if the size of the modules and student is not empty
-            if (modules.size() == 0)
-                throw new IllegalArgumentException("Modules cannot be empty.");
-
-            // check if modules exist or not.
-            if (!moduleSet.containsAll(modules))
-                throw new IllegalArgumentException("Modules doesn't match the read input file, please check!");
+            // check if the size of the modules and student is not empty and  check if modules exist or not.
+            if (modules.size() == 0 && !moduleSet.containsAll(modules))
+                throw new IllegalArgumentException("Modules cannot be empty. or Modules doesn't match the read input file, please check!");
 
             Lecturer lecturer = (Lecturer) staff;
             if (!lecturer.isTotalCreditFulfilled()) {
@@ -202,13 +198,9 @@ public class StaffManager {
                 throw new InputMismatchException("Lecturer is already assigned with max no. of credits! i.e " + lecturer.getTotalCredits() + " for the course!");
             }
         } else if (staff instanceof Researcher) {
-            // check if the size of the modules and student is not empty
-            if (studentNameSet.size() == 0)
+            // check if the size of the modules and student is not empty and check if modules exist or not.
+            if (studentNameSet.size() == 0 && !studentNameSet.containsAll(students))
                 throw new IllegalArgumentException("Student cannot be empty.");
-
-            // check if modules exist or not.
-            if (!studentNameSet.containsAll(students))
-                throw new IllegalArgumentException("Student doesn't match the read input file, please check!");
 
             Researcher researcher = (Researcher) staff;
             if (!researcher.isMaxNoOfStudentSupervised()) {
@@ -295,8 +287,6 @@ public class StaffManager {
                 return staff;
             } else if (staff.getStaffID().equals(staffID) && staff instanceof Researcher) {
                 return staff;
-            } else {
-                throw new IllegalArgumentException("Cannot find the matching staffID Object");
             }
         }
         return null;

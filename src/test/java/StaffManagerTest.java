@@ -16,10 +16,10 @@ import java.util.*;
  * Copyright (C) 2023 Newcastle University, UK
  */
 public class StaffManagerTest {
-    final static StaffManager staffManager = new StaffManager();
     final Calendar calendar = Calendar.getInstance();
 
     private void testReadInModules() {
+        final StaffManager staffManager = new StaffManager();
 
         // validate proper error is thrown when we pass the incorrect file path.
         try {
@@ -36,6 +36,8 @@ public class StaffManagerTest {
     }
 
     private void testReadInStudents() {
+        final StaffManager staffManager = new StaffManager();
+
         // validate proper error is thrown when we pass the incorrect file path.
         try {
             staffManager.readInStudents("");
@@ -51,6 +53,9 @@ public class StaffManagerTest {
     }
 
     private void validateEmployStaff() {
+
+        final StaffManager staffManager = new StaffManager();
+
 
         final Date dob = calendar.getTime();
 
@@ -111,6 +116,7 @@ public class StaffManagerTest {
     }
 
     private void validateAddData() {
+        final StaffManager staffManager = new StaffManager();
 
         // validate when there is no staff employed till now.
         try {
@@ -147,20 +153,28 @@ public class StaffManagerTest {
         } catch (Throwable t) {
             System.out.println("when we try to add data for invalid staffID. Test got passed!");
             Assertions.assertExpectedThrowable(
-                    IllegalArgumentException.class, t);
-        }
-
-        //validate when we try to add data for invalid staffID
-        try {
-            staffManager.addData(StaffID.getInstance(), modules, students);
-        } catch (Throwable t) {
-            System.out.println("when we try to add data for invalid staffID. Test got passed!");
-            Assertions.assertExpectedThrowable(
-                    IllegalArgumentException.class, t);
+                    NullPointerException.class, t);
         }
 
         //validate when we send valid staff id and staff type as Lecturer and valid modules
         Assertions.assertTrue(staffManager.addData(staff1.getStaffID(), modules, null));
+
+        //validate when we send valid staff id and staff type as Researcher and valid students
+        Assertions.assertTrue(staffManager.addData(staff3.getStaffID(), null, students));
+
+        //Validate getStaffId method doesn't return null;
+        Assertions.assertNotNull(staff1.getStaffID());
+
+        //Validate getSmartCard method doesn't return null;
+        Assertions.assertNotNull(staff1.getSmartCard());
+
+        //Validate getStaffEmploymentStatus method doesn't return null;
+        Assertions.assertNotNull(staff1.getStaffEmploymentStatus());
+        Assertions.assertEquals(staff1.getStaffEmploymentStatus(),"permanent");
+
+        //Validate getName method doesn't return null;
+        Assertions.assertNotNull(staff1.getName());
+        Assertions.assertEquals(staff1.getName().toString(), "Akash Gond");
 
     }
 

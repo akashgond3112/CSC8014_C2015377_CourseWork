@@ -1,5 +1,6 @@
 package main.com.university.ncl;
 
+import java.util.HashSet;
 import java.util.InputMismatchException;
 import java.util.Set;
 
@@ -18,7 +19,7 @@ public final class Researcher extends AbstractStaff {
     final static int MAX_SUPERVISE_STUDENTS = 10;
     final static String RESEARCHER = "Researcher";
     private int totalNoOfStudent;
-    private Set<Name> studentSupervised;
+    private final Set<Name> studentSupervised = new HashSet<>();
 
     /**
      * @see AbstractStaff#AbstractStaff(Name, String, StaffID)
@@ -33,12 +34,13 @@ public final class Researcher extends AbstractStaff {
 
     public void setStudentSupervised(Set<Name> studentSupervised) {
         if (studentSupervised == null)
-            throw new IllegalArgumentException("Name set cannot be empty, Please check your names entry!");
+            throw new NullPointerException("Name set cannot be empty, Please check your names entry!");
         for (Name name : studentSupervised) {
             if (this.totalNoOfStudent < MAX_SUPERVISE_STUDENTS) {
                 setStudent(name);
             } else {
-                throw new InputMismatchException("Researcher is already assigned with max no. of Students! i.e " + totalNoOfStudent + " for the course");
+                System.out.println("Researcher already reached with max no. of Students! to be supervised i.e " + totalNoOfStudent + " for the course. So now skipping rest of the students");
+                break;
             }
         }
     }
@@ -46,8 +48,9 @@ public final class Researcher extends AbstractStaff {
     public void setStudent(Name name) {
         if (!studentSupervised.contains(name)) {
             studentSupervised.add(name);
+            totalNoOfStudent++;
         } else {
-            System.out.println(name.toString() + " is already assigned to the Lectures , so Skipping it.");
+            System.out.println(name.toString() + " is already assigned to the Lectures , so now skipping the student.");
         }
     }
 

@@ -4,27 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="124ef83d-e77f-4685-a538-1456d4dc7765" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.vscode/launch.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/students.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/CSC8014_C2015377_CourseWork.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/CSC8014_C2015377_CourseWork.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="124ef83d-e77f-4685-a538-1456d4dc7765" name="Changes" comment="added test class and method to test the code">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CSC8014_C2015377_CourseWork.iml" beforeDir="false" afterPath="$PROJECT_DIR$/CSC8014_C2015377_CourseWork.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules.TXT" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/com/university/ncl/AbstractStaff.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/com/university/ncl/AbstractStaff.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/com/university/ncl/Lecturer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/com/university/ncl/Lecturer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/com/university/ncl/Module.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/com/university/ncl/Module.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/com/university/ncl/Name.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/com/university/ncl/Name.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/com/university/ncl/Researcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/com/university/ncl/Researcher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/com/university/ncl/SmartCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/com/university/ncl/SmartCard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/com/university/ncl/SmartCardNumber.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/com/university/ncl/SmartCardNumber.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/com/university/ncl/StaffID.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/com/university/ncl/StaffID.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/com/university/ncl/Staff.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/com/university/ncl/Staff.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/com/university/ncl/StaffManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/com/university/ncl/StaffManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/StaffManagerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/StaffManagerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/students.TXT" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,20 +76,63 @@
       <workItem from="1676155238528" duration="85000" />
       <workItem from="1676155334428" duration="362000" />
       <workItem from="1676155710424" duration="3118000" />
-      <workItem from="1676213078126" duration="9862000" />
+      <workItem from="1676213078126" duration="10551000" />
+      <workItem from="1676226601799" duration="2346000" />
     </task>
+    <task id="LOCAL-00001" summary="added test class and method to test the code">
+      <created>1676223070812</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1676223070812</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="added test class and method to test the code" />
+    <option name="LAST_COMMIT_MESSAGE" value="added test class and method to test the code" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/com/university/ncl/Researcher.java</url>
+          <line>41</line>
+          <option name="timeStamp" value="60" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/StaffManagerTest.java</url>
+          <line>162</line>
+          <option name="timeStamp" value="61" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/com/university/ncl/StaffManager.java</url>
-          <line>187</line>
-          <option name="timeStamp" value="43" />
+          <line>206</line>
+          <option name="timeStamp" value="62" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/com/university/ncl/StaffManager.java</url>
+          <line>207</line>
+          <option name="timeStamp" value="63" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/com/university/ncl/Researcher.java</url>
+          <line>36</line>
+          <option name="timeStamp" value="64" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/com/university/ncl/Researcher.java</url>
+          <line>38</line>
+          <option name="timeStamp" value="65" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/com/university/ncl/Researcher.java</url>
+          <line>39</line>
+          <option name="timeStamp" value="66" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
