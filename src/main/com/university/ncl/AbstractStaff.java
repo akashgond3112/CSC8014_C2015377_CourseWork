@@ -18,14 +18,14 @@ public abstract class AbstractStaff implements Staff {
     // note static, so per-class map
     private static final Map<StaffID, Staff> staffMap = new HashMap<StaffID, Staff>();
 
-    private final String contractType;
+    private final String staffType;
     private SmartCard smartCard;
     private final StaffID staffID;
     private final Name name;
 
-    AbstractStaff(Name name, String contractType, StaffID staffID) {
+    AbstractStaff(Name name, String staffType, StaffID staffID) {
         this.name = name;
-        this.contractType = contractType;
+        this.staffType = staffType;
         this.staffID = staffID;
     }
 
@@ -48,8 +48,8 @@ public abstract class AbstractStaff implements Staff {
         return staff;
     }
 
-    public String getContractType() {
-        return contractType;
+    public String getStaffType() {
+        return staffType;
     }
 
     /**
@@ -89,7 +89,7 @@ public abstract class AbstractStaff implements Staff {
      * @return a string (Permanent or fixed)
      */
     public String getStaffEmploymentStatus() {
-        return this.contractType;
+        return this.staffType;
     }
 
     public void setSmartCard(SmartCard smartCard) {

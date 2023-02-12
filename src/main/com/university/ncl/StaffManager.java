@@ -32,16 +32,17 @@ public class StaffManager {
         if (path.isEmpty())
             throw new IllegalArgumentException("Path cannot be empty!");
         try {
-            Scanner readCsv = new Scanner(new File(path));
-            while (readCsv.hasNextLine()) {
-                String line = readCsv.nextLine();
+            final File importedFile = new File(path);
+            final Scanner fileInput = new Scanner(importedFile);
+            while (fileInput.hasNextLine()) {
+                String line = fileInput.nextLine();
                 String[] lineArray = line.split(","); // split the sentences using String split inbuilt method.
 
-                // adding the Exhibit object to the list of the exhibits.
-                moduleSet.add(new Module(lineArray[0], lineArray[1], Integer.parseInt(lineArray[2]), Integer.parseInt(lineArray[3])));
+                // adding the Module object to the set of the Modules.
+                moduleSet.add(new Module(lineArray[0].trim(), lineArray[1].trim(), Integer.parseInt(lineArray[2].trim()), Integer.parseInt(lineArray[3].trim())));
 
             }
-            readCsv.close(); // closing the Scanner class
+            fileInput.close(); // closing the Scanner class
 
         } catch (FileNotFoundException fileNotFoundException) {
             System.out.println(fileNotFoundException.getMessage()); // catching the exception .
@@ -63,15 +64,16 @@ public class StaffManager {
             throw new IllegalArgumentException("Path cannot be empty!");
 
         try {
-            Scanner readCsv = new Scanner(new File(path));
-            while (readCsv.hasNextLine()) {
-                String line = readCsv.nextLine();
-                String[] lineArray = line.split(","); // split the sentences using String split inbuilt method.
+            final File importedFile = new File(path);
+            final Scanner fileInput = new Scanner(importedFile);
+            while (fileInput.hasNextLine()) {
+                String line = fileInput.nextLine();
+                String[] lineArray = line.split(" "); // split the sentences using String split inbuilt method.
 
-                // adding the Exhibit object to the list of the exhibits.
+                // adding the Name object to the set of the students.
                 studentNameSet.add(new Name(lineArray[0], lineArray[1]));
             }
-            readCsv.close(); // closing the Scanner class
+            fileInput.close(); // closing the Scanner class
 
         } catch (FileNotFoundException fileNotFoundException) {
             System.out.println(fileNotFoundException.getMessage()); // catching the exception .
@@ -91,8 +93,32 @@ public class StaffManager {
         //add your code here. Do NOT change the method signature
 
         // check for null possibilities for all the params
-        if (firstName.isEmpty() || lastName.isEmpty() || dob == null || staffType == null || employmentStatus == null)
+        if (firstName == null && lastName == null && dob == null && staffType == null && employmentStatus == null)
             throw new NullPointerException("Please check the parameter provided!");
+
+        // validate provided input is String not int e.g. firstName
+        if (validateIfProvidedInputIsInteger(firstName))
+            throw new NumberFormatException("Provided input i.e firstName cannot be int. It should be String!");
+
+        // validate provided input is String not int e.g. lastName,
+        if (validateIfProvidedInputIsInteger(lastName))
+            throw new NumberFormatException("Provided input i.e lastName cannot be int. It should be String!");
+
+        // validate provided input is String not int e.g. employmentStatus
+        if (validateIfProvidedInputIsInteger(employmentStatus))
+            throw new NumberFormatException("Provided input i.e employmentStatus cannot be int. It should be String!");
+
+        // validate staff type can be only of type Lecturer and researcher
+        if (!(staffType.equals(Lecturer.LECTURER) || staffType.equals(Researcher.RESEARCHER)))
+            throw new InputMismatchException("Staff type is not matching!");
+
+        // validate employmentStatus can be of type
+        if (!(employmentStatus.equals(SmartCard.PERMANENT) || employmentStatus.equals(SmartCard.FIXED)))
+            throw new InputMismatchException("Employment type is not matching!");
+
+        // validate age criteria
+        if (!isValidAge(dob))
+            throw new InputMismatchException("The provided date of birth is not meeting the criteria. Age should be between 22-67.");
 
         // create a name object
         Name name = new Name(firstName, lastName);
@@ -103,26 +129,22 @@ public class StaffManager {
         // create a staff object based on the staff type
         Staff staff = AbstractStaff.getInstance(staffType, name, employmentStatus, staffID);
 
-        // once the staff is generated , we will create the SmartCard number
-        SmartCardNumber smartCardNumber = SmartCardNumber.getInstance(name);
 
         // Here we will call the criteria before creating the smart card,which will return boolean value
         if (checkSmartCardEligibility(staff, dob)) {
-            SmartCard smartCard = new SmartCard(employmentStatus, name, smartCardNumber, dob); // create the smart card object , if the criteria satisfy
+            SmartCard smartCard = new SmartCard(employmentStatus, name, dob); // create the smart card object , if the criteria satisfy
 
             // check the staff type based on that we creat an object of  staff and cast it, so that we can call the setSmartCard method from the
             // Abstract class i.e. StaffManager where it is defined
             if (staffType.equals(Lecturer.LECTURER)) {
                 Lecturer lecturer = (Lecturer) staff;
                 lecturer.setSmartCard(smartCard);
-            } else if (staffType.equals(Researcher.RESEARCHER)) {
+            } else {
                 Researcher researcher = (Researcher) staff;
                 researcher.setSmartCard(smartCard);
-            } else {
-                throw new IllegalArgumentException("Invalid staff type!");
             }
         }
-        // creat a record of all the staff employed
+        // creat a record of all the staff employed and return it
         staffs.add(staff);
         return staff;
     }
@@ -158,36 +180,46 @@ public class StaffManager {
         if (id == null)
             throw new NullPointerException("Staff Id cannot be null!, Please check your input");
 
-        // check if the size of the modules and student is not empty
-        if (modules.size() == 0 || studentNameSet.size() == 0)
-            throw new IllegalArgumentException("Modules or student cannot be empty, Module : {" + modules.size() + "}, Students : {" + students.size() + "}.");
+        final Staff staff = getMtchingStaff(id);
 
-        // check if modules exist or not.
-        if (!moduleSet.containsAll(modules) || !studentNameSet.containsAll(students))
-            throw new IllegalArgumentException("Either Modules or student doesn't match the read input file, please check!");
+        if (staff == null)
+            throw new NullPointerException("Cannot find the matching staffID Object");
 
-        for (Staff staff : staffs) {
+        if (staff instanceof Lecturer) {
+            // check if the size of the modules and student is not empty
+            if (modules.size() == 0)
+                throw new IllegalArgumentException("Modules cannot be empty.");
 
-            if (staff.getStaffID().equals(id) && staff instanceof Lecturer lecturer) {
+            // check if modules exist or not.
+            if (!moduleSet.containsAll(modules))
+                throw new IllegalArgumentException("Modules doesn't match the read input file, please check!");
 
-                if (!((Lecturer) staff).isTotalCreditFulfilled()) {
-                    lecturer.setModuleSet(modules);
-                    return true;
-                } else {
-                    throw new IllegalArgumentException("");
-                }
-
-            } else if (staff.getStaffID().equals(id) && staff instanceof Researcher researcher) {
-
-                if (!researcher.getNoOfStudentSupervised()) {
-                    researcher.setNameSet(students);
-                    return true;
-                }
+            Lecturer lecturer = (Lecturer) staff;
+            if (!lecturer.isTotalCreditFulfilled()) {
+                lecturer.setModuleSet(modules);
+                return true;
             } else {
-                throw new IllegalArgumentException("Cannot find the matching staffID Object");
+                throw new InputMismatchException("Lecturer is already assigned with max no. of credits! i.e " + lecturer.getTotalCredits() + " for the course!");
             }
+        } else if (staff instanceof Researcher) {
+            // check if the size of the modules and student is not empty
+            if (studentNameSet.size() == 0)
+                throw new IllegalArgumentException("Student cannot be empty.");
+
+            // check if modules exist or not.
+            if (!studentNameSet.containsAll(students))
+                throw new IllegalArgumentException("Student doesn't match the read input file, please check!");
+
+            Researcher researcher = (Researcher) staff;
+            if (!researcher.isMaxNoOfStudentSupervised()) {
+                researcher.setStudentSupervised(students);
+                return true;
+            } else {
+                throw new InputMismatchException("Researcher is already assigned with max no. of students! i.e " + researcher.getStudentSupervised() + " for the course!");
+            }
+        } else {
+            throw new InputMismatchException("Cannot find the matching staffID Object");
         }
-        return false;
     }
 
     /**
@@ -226,7 +258,7 @@ public class StaffManager {
      * When issuing a smart card, the following rules must be observed.
      * • A staff must be at least 22 years old and at most 67 (retirement age is 68).
      * • A staff cannot be both a researcher and a lecturer.
-     * • A staff cannot be issued with more than one smartcard (i.e. do not try to deal with lost cards!)
+     * • A staff cannot be issued with more than one smart-card (i.e. do not try to deal with lost cards!)
      */
     public boolean checkSmartCardEligibility(Staff staff, Date dob) {
 
@@ -234,11 +266,10 @@ public class StaffManager {
         if (staff.getSmartCard() != null) return false;
 
         //A staff must be at least 22 years old and at most 67 (retirement age is 68).
-        if (!isValidAge(dob)) return false;
+        return isValidAge(dob);
 
         // TODO: Need to implement this conditions , need to check the below criteria
         //A staff cannot be both a researcher and a lecturer.
-        return true;
     }
 
     /**
@@ -258,4 +289,28 @@ public class StaffManager {
         return age >= 22 && age <= 67;
     }
 
+    public Staff getMtchingStaff(StaffID staffID) {
+        for (Staff staff : staffs) {
+            if (staff.getStaffID().equals(staffID) && staff instanceof Lecturer) {
+                return staff;
+            } else if (staff.getStaffID().equals(staffID) && staff instanceof Researcher) {
+                return staff;
+            } else {
+                throw new IllegalArgumentException("Cannot find the matching staffID Object");
+            }
+        }
+        return null;
+    }
+
+    public boolean validateIfProvidedInputIsInteger(String input) {
+        int value = 0;
+        try {
+            value = Integer.parseInt(input);
+            return true;
+        } catch (NumberFormatException numberFormatException) {
+            numberFormatException.getMessage();
+        }
+
+        return false;
+    }
 }

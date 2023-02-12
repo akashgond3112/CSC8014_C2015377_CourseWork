@@ -43,10 +43,10 @@ public final class StaffID {
      */
     public static StaffID getInstance () {
 
-        Random rand = new Random();
-        int letterInt = rand.nextInt(26) + 97; // generate a random number between 97 and 122 (corresponding to ASCII values for 'a' to 'z')
-        char letter = (char) letterInt; // convert the integer to a letter
-        int number = rand.nextInt(999) + 1; // generate a random number between 1 and 999
+        final Random rand = new Random();
+        final int letterInt = rand.nextInt(26) + 97; // generate a random number between 97 and 122 (corresponding to ASCII values for 'a' to 'z')
+        final char letter = (char) letterInt; // convert the integer to a letter
+        final int number = rand.nextInt(999) + 1; // generate a random number between 1 and 999
         String staffId =  letter + String.format("%03d", number); // format the number with leading zeros
 
         StaffID stfID = STAFF_ID.get(staffId);

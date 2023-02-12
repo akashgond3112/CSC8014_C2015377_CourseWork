@@ -1,73 +1,71 @@
 package main.com.university.ncl;
 
-import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Date;
 
 public class SmartCard {
 
-    private String employmentStatus;
-    private Name name;
-    private SmartCardNumber smartCardNumber;
-    private Date dob;
-    private LocalDate doi;
-    private LocalDate doe;
+    final static String PERMANENT = "permanent";
+    final static String FIXED = "fixed";
+    private final String employmentStatus;
+    private final Name name;
+    private final SmartCardNumber smartCardNumber;
+    private final Date dateOfBirth;
+    private final Date dateOfIssue;
+    private Date dateOfExpiry;
+    final Calendar calendar = Calendar.getInstance();
 
-    public SmartCard(String employmentStatus, Name name, SmartCardNumber smartCardNumber, Date dob) {
+    public SmartCard(String employmentStatus, Name name, Date dob) {
         this.employmentStatus = employmentStatus;
         this.name = name;
-        this.dob = dob;
-        this.smartCardNumber = smartCardNumber;
-        this.doi = LocalDate.now();
+        this.dateOfBirth = dob;
+        this.dateOfIssue = calendar.getTime();
+        this.smartCardNumber = SmartCardNumber.getInstance(this.name.getFirstName(), this.name.getLastName(), this.dateOfIssue);
+        setExpiryDate();
     }
 
-    public SmartCard() {
+    /**
+     * @return which returns the expiry date of the card
+     */
+    public Date getExpiryDate() {
+        return dateOfExpiry;
     }
 
-    public Name getName() {
-        return name;
+    public String getEmploymentStatus() {
+        return employmentStatus;
     }
 
-    public void setName(Name name) {
-        this.name = name;
+    public String getName() {
+        return this.name.toString();
     }
 
     public SmartCardNumber getSmartCardNumber() {
         return smartCardNumber;
     }
 
-    public void setSmartCardNumber(SmartCardNumber smartCardNumber) {
-        this.smartCardNumber = smartCardNumber;
+    public Date getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public Date getDob() {
-        return dob;
+    public Date getDateOfIssue() {
+        return dateOfIssue;
     }
 
-    public void setDob(Date dob) {
-        this.dob = dob;
-    }
-
-    public LocalDate getDoi() {
-        return doi;
-    }
-
-    public void setDoi(LocalDate doi) {
-        this.doi = doi;
-    }
-
-
-    public LocalDate getExpiryDate() {
-        return doe;
-    }
-
+    /**
+     * Method which sets an expiry date for the card. If the smart
+     * card is held by a staff on fixed-term contract, the expiry date is set to the issue
+     * date plus two years. If the smart card is held by a staff on permanent contract,
+     * the expiry date is set to the issue date plus ten years.
+     */
     private void setExpiryDate() {
-        if (this.employmentStatus.equals("fixed")) {
-            this.doe = doi.plusYears(2);
-        } else if (this.employmentStatus.equals("permanent")) {
-            this.doe = doi.plusYears(10);
+        if (this.employmentStatus.equals(FIXED)) {
+            calendar.add(Calendar.YEAR, 2);
+        } else if (this.employmentStatus.equals(PERMANENT)) {
+            calendar.add(Calendar.YEAR, 10);
         } else {
             System.out.println("dd");
         }
+        this.dateOfExpiry = calendar.getTime();
     }
 
 }

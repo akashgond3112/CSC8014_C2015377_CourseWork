@@ -8,10 +8,10 @@ package main.com.university.ncl;
  */
 public class Module {
 
-    private String name;
-    private String code;
-    private int semester;
-    private int creditScore;
+    private final String name;
+    private final String code;
+    private final int semester;
+    private final int creditScore;
 
     public Module(String code, String name, int semester, int creditScore) {
         this.name = name;
@@ -24,31 +24,17 @@ public class Module {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getCode() {
         return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
     }
 
     public int getSemester() {
         return semester;
     }
 
-    public void setSemester(int semester) {
-        this.semester = semester;
-    }
 
     public int getCreditScore() {
         return creditScore;
     }
-
-    public void setCreditScore(int creditScore) {
-        this.creditScore = creditScore;
-    }
+    
 }

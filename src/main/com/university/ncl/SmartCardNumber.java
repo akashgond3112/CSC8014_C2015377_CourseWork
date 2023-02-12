@@ -1,28 +1,32 @@
 package main.com.university.ncl;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 public final class SmartCardNumber {
     private static final Map<String, SmartCardNumber> SMART_CARD_NUMBER_MAP = new HashMap<String, SmartCardNumber>();
-    private final String smartCardNumber ,nameInitial;
-    private final int serialNumber ,currentYear;
+    private final String smartCardNumber;
+    private static String nameInitial = null;
+    private static int serialNumber = 0;
+    private static Calendar currentYear = Calendar.getInstance();
+    ;
 
 
-    private SmartCardNumber(String smartCardNumber, String nameInitial, int serialNumber, int currentYear) {
+    private SmartCardNumber(String smartCardNumber, String nameInitial, int serialNumber, Calendar currentYear) {
         this.smartCardNumber = smartCardNumber;
-        this.nameInitial = nameInitial;
-        this.serialNumber = serialNumber;
-        this.currentYear = currentYear;
+        SmartCardNumber.nameInitial = nameInitial;
+        SmartCardNumber.serialNumber = serialNumber;
+        SmartCardNumber.currentYear = currentYear;
     }
 
-    public static SmartCardNumber getInstance(Name name) {
-        String nameInitial = name.getFirstName().substring(0, 1) + name.getLastName().substring(0, 1);
-        int serialNumber = (int) (Math.random() * 100);
-        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+    public static SmartCardNumber getInstance(String firstName, String lastName, Date dateOfIssue) {
+        nameInitial = firstName.substring(0, 1) + lastName.substring(0, 1);
+        serialNumber = (int) (Math.random() * 100);
+        currentYear.setTime(dateOfIssue);
 
-        String smtCardNo = nameInitial + "-" + serialNumber + "-" + currentYear;
+        String smtCardNo = nameInitial + "-" + serialNumber + "-" + currentYear.get(Calendar.YEAR);
 
         SmartCardNumber smartCardNumber = SMART_CARD_NUMBER_MAP.get(smtCardNo);
         if (smartCardNumber == null) {
