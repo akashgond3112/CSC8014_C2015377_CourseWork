@@ -10,6 +10,11 @@ public final class StaffID {
     private final int suffix;
     private final String staffId;
 
+    private StaffID(char prefix, int suffix, String staffId) {
+        this.prefix=prefix;
+        this.suffix=suffix;
+        this.staffId=staffId;
+    }
 
     public String getStaffId() {
         return staffId;
@@ -23,18 +28,10 @@ public final class StaffID {
         return suffix;
     }
 
-
     @Override
     public String toString() {
         return staffId;
     }
-
-    private StaffID(char prefix, int suffix, String staffId) {
-        this.prefix=prefix;
-        this.suffix=suffix;
-        this.staffId=staffId;
-    }
-
 
     /*
      This code generates a random number between 97 and 122 (corresponding to the ASCII values for the letters 'a' to 'z') using the Random class,
@@ -46,8 +43,8 @@ public final class StaffID {
         final Random rand = new Random();
         final int letterInt = rand.nextInt(26) + 97; // generate a random number between 97 and 122 (corresponding to ASCII values for 'a' to 'z')
         final char letter = (char) letterInt; // convert the integer to a letter
-        final int number = rand.nextInt(999) + 1; // generate a random number between 1 and 999
-        String staffId =  letter + String.format("%03d", number); // format the number with leading zeros
+        final int number = rand.nextInt(999) + 100; // generate a random number between 100 and 999
+        final String staffId =  letter + String.format("%03d", number); // format the number with leading zeros
 
         StaffID stfID = STAFF_ID.get(staffId);
         if (stfID==null) {

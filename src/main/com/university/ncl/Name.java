@@ -14,6 +14,11 @@ public class Name {
     private final String firstName;
     private final String lastName;
 
+    public Name(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(firstName, lastName);
@@ -40,8 +45,4 @@ public class Name {
         return this.firstName + " " + this.lastName;
     }
 
-    public Name(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
 }
