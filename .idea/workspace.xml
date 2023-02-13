@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="124ef83d-e77f-4685-a538-1456d4dc7765" name="Changes" comment="Fixed the code and added new test's">
+    <list default="true" id="124ef83d-e77f-4685-a538-1456d4dc7765" name="Changes" comment="Fixed the code and removed unnecessary condition">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/com/university/ncl/AbstractStaff.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/com/university/ncl/AbstractStaff.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/com/university/ncl/StaffManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/com/university/ncl/StaffManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/com/university/ncl/Module.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/com/university/ncl/Module.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/com/university/ncl/Name.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/com/university/ncl/Name.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/com/university/ncl/SmartCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/com/university/ncl/SmartCard.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,7 +76,9 @@
       <workItem from="1676155334428" duration="362000" />
       <workItem from="1676155710424" duration="3118000" />
       <workItem from="1676213078126" duration="10551000" />
-      <workItem from="1676226601799" duration="3862000" />
+      <workItem from="1676226601799" duration="4157000" />
+      <workItem from="1676287321438" duration="160000" />
+      <workItem from="1676319084763" duration="3208000" />
     </task>
     <task id="LOCAL-00001" summary="added test class and method to test the code">
       <created>1676223070812</created>
@@ -90,7 +94,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676229088245</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Fixed the code and removed unnecessary condition">
+      <created>1676230754115</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1676230754115</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -99,7 +110,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="added test class and method to test the code" />
     <MESSAGE value="Fixed the code and added new test's" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed the code and added new test's" />
+    <MESSAGE value="Fixed the code and removed unnecessary condition" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed the code and removed unnecessary condition" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -108,6 +120,11 @@
           <url>file://$PROJECT_DIR$/src/test/java/StaffManagerTest.java</url>
           <line>137</line>
           <option name="timeStamp" value="67" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/StaffManagerTest.java</url>
+          <line>138</line>
+          <option name="timeStamp" value="68" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

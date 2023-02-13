@@ -1,5 +1,7 @@
 package main.com.university.ncl;
 
+import java.util.Objects;
+
 /**
  * @author akash.gond
  * @Project Learning
@@ -32,9 +34,22 @@ public class Module {
         return semester;
     }
 
-
     public int getCreditScore() {
         return creditScore;
     }
-    
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Module)) return false;
+        Module module = (Module) o;
+        return getSemester() == module.getSemester() && getCreditScore() == module.getCreditScore() && getName().equals(module.getName()) && getCode().equals(module.getCode());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getCode(), getSemester(), getCreditScore());
+    }
+
+
 }

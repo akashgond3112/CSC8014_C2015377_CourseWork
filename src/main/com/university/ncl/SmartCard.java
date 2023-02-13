@@ -2,6 +2,7 @@ package main.com.university.ncl;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
 public class SmartCard {
 
@@ -66,6 +67,19 @@ public class SmartCard {
             System.out.println("dd");
         }
         this.dateOfExpiry = calendar.getTime();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SmartCard)) return false;
+        SmartCard smartCard = (SmartCard) o;
+        return getEmploymentStatus().equals(smartCard.getEmploymentStatus()) && getName().equals(smartCard.getName()) && getDateOfBirth().equals(smartCard.getDateOfBirth());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getEmploymentStatus(), getName(), getDateOfBirth());
     }
 
 }

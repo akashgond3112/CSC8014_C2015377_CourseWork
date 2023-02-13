@@ -2,6 +2,7 @@ package main.com.university.ncl;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author akash.gond
@@ -96,5 +97,18 @@ public abstract class AbstractStaff implements Staff {
 
     public void setSmartCard(SmartCard smartCard) {
         this.smartCard = smartCard;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AbstractStaff)) return false;
+        AbstractStaff that = (AbstractStaff) o;
+        return getSmartCard().equals(that.getSmartCard()) && getName().equals(that.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getSmartCard(), getName());
     }
 }
