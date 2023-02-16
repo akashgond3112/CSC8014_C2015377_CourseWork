@@ -20,14 +20,13 @@ public final class Lecturer extends AbstractStaff {
     final static int MAX_CREDITS = 40;
     final static String LECTURER = "Lecturer";
     private int totalCredits;
-
     private final Set<Module> moduleSet = new HashSet<>();
 
     /**
-     * @see main.com.university.ncl.AbstractStaff#AbstractStaff(Name, String, StaffID)
+     * @see AbstractStaff#AbstractStaff(Name, String, String, StaffID)
      */
-    public Lecturer(Name name, String contractType, StaffID staffID) {
-        super(name, contractType, staffID);
+    public Lecturer(Name name, String staffType, StaffID staffID,String employmentStatus) {
+        super(name, staffType, employmentStatus, staffID);
     }
 
     /**

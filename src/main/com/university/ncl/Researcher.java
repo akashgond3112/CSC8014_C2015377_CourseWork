@@ -1,7 +1,6 @@
 package main.com.university.ncl;
 
 import java.util.HashSet;
-import java.util.InputMismatchException;
 import java.util.Set;
 
 /**
@@ -22,10 +21,10 @@ public final class Researcher extends AbstractStaff {
     private final Set<Name> studentSupervised = new HashSet<>();
 
     /**
-     * @see AbstractStaff#AbstractStaff(Name, String, StaffID)
+     * @see AbstractStaff#AbstractStaff(Name, String, String, StaffID)
      */
-    public Researcher(Name name, String contractType, StaffID staffID) {
-        super(name, contractType, staffID);
+    public Researcher(Name name, String staffType, StaffID staffID,String employmentStatus) {
+        super(name, staffType, employmentStatus, staffID);
     }
 
     public String getRESEARCHER() {

@@ -19,11 +19,6 @@ public class Name {
         this.lastName = lastName;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(firstName, lastName);
-    }
-
     public String getFirstName() {
         return firstName;
     }
@@ -43,6 +38,11 @@ public class Name {
     @Override
     public String toString() {
         return this.firstName + " " + this.lastName;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName);
     }
 
 }

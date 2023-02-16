@@ -11,8 +11,6 @@ public final class SmartCardNumber {
     private static String nameInitial = null;
     private static int serialNumber = 0;
     private static Calendar currentYear = Calendar.getInstance();
-    ;
-
 
     private SmartCardNumber(String smartCardNumber, String nameInitial, int serialNumber, Calendar currentYear) {
         this.smartCardNumber = smartCardNumber;

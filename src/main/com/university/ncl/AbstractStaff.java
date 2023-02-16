@@ -14,23 +14,21 @@ public abstract class AbstractStaff implements Staff {
 
     public static final String LECTURER = "Lecturer";
     public static final String RESEARCHER = "Researcher";
-
-    // map of account number to instantiated account
-    // note static, so per-class map
     private static final Map<StaffID, Staff> staffMap = new HashMap<StaffID, Staff>();
-
     private final String staffType;
+    private final String employmentStatus;
     private SmartCard smartCard;
     private final StaffID staffID;
     private final Name name;
 
-    AbstractStaff(Name name, String staffType, StaffID staffID) {
-        this.name = name;
+    AbstractStaff(Name name, String staffType, String employmentStatus, StaffID staffID) {
+        this.name = new Name(name.getFirstName(), name.getLastName());
         this.staffType = staffType;
+        this.employmentStatus = employmentStatus;
         this.staffID = staffID;
     }
 
-    public static Staff getInstance(String staffType, Name name, String contractType) {
+    public static Staff getInstance(String staffType, Name name, String employmentStatus) {
 
         // generate a staff ID
         final StaffID staffID = StaffID.getInstance();
@@ -42,9 +40,9 @@ public abstract class AbstractStaff implements Staff {
         if (staff != null) return staff;
 
         if (staffType.equals(LECTURER)) {
-            staff = new Lecturer(name, contractType, staffID);
+            staff = new Lecturer(name, staffType, staffID,employmentStatus);
         } else {
-            staff = new Researcher(name, contractType, staffID);
+            staff = new Researcher(name, staffType, staffID,employmentStatus);
         }
 
         staffMap.put(staffID, staff);
@@ -92,9 +90,12 @@ public abstract class AbstractStaff implements Staff {
      * @return a string (Permanent or fixed)
      */
     public String getStaffEmploymentStatus() {
-        return this.staffType;
+        return this.employmentStatus;
     }
 
+    /**
+     * @param smartCard , expect smart card object
+     */
     public void setSmartCard(SmartCard smartCard) {
         this.smartCard = smartCard;
     }
@@ -104,11 +105,11 @@ public abstract class AbstractStaff implements Staff {
         if (this == o) return true;
         if (!(o instanceof AbstractStaff)) return false;
         AbstractStaff that = (AbstractStaff) o;
-        return getSmartCard().equals(that.getSmartCard()) && getName().equals(that.getName());
+        return getStaffType().equals(that.getStaffType()) && getName().equals(that.getName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getSmartCard(), getName());
+        return Objects.hash(getStaffType(), getName());
     }
 }

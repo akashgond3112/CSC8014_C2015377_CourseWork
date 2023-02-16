@@ -128,7 +128,7 @@ public class StaffManager {
 
         // Here we will call the criteria before creating the smart card,which will return boolean value
         if (checkSmartCardEligibility(staff, dob)) {
-            final SmartCard smartCard = new SmartCard(employmentStatus, name, dob); // create the smart card object , if the criteria satisfy
+            final SmartCard smartCard = new SmartCard(staff.getStaffEmploymentStatus(), staff.getName(), dob); // create the smart card object , if the criteria satisfy
 
             // check the staff type based on that we creat an object of  staff and cast it, so that we can call the setSmartCard method from the
             // Abstract class i.e. StaffManager where it is defined
@@ -187,12 +187,18 @@ public class StaffManager {
         if (staff == null)
             throw new NullPointerException("Cannot find the matching staffID Object");
 
+        if (staff instanceof Lecturer && modules == null && students != null)
+            throw new InputMismatchException("Expected modules cannot not be null!");
+        else if (staff instanceof Researcher && modules != null && students == null) {
+            throw new InputMismatchException("Expected students cannot not be null!");
+        }
+
         if (staff instanceof Lecturer) {
             // check if the size of the modules and student is not empty and  check if modules exist or not.
             if (modules.size() == 0 && !moduleSet.containsAll(modules))
                 throw new IllegalArgumentException("Modules cannot be empty. or Modules doesn't match the read input file, please check!");
 
-            Lecturer lecturer = (Lecturer) staff;
+            final Lecturer lecturer = (Lecturer) staff;
             if (!lecturer.isTotalCreditFulfilled()) {
                 lecturer.setModuleSet(modules);
                 return true;
@@ -204,7 +210,7 @@ public class StaffManager {
             if (studentNameSet.size() == 0 && !studentNameSet.containsAll(students))
                 throw new IllegalArgumentException("Student cannot be empty.");
 
-            Researcher researcher = (Researcher) staff;
+            final Researcher researcher = (Researcher) staff;
             if (!researcher.isMaxNoOfStudentSupervised()) {
                 researcher.setStudentSupervised(students);
                 return true;
@@ -231,12 +237,11 @@ public class StaffManager {
      *            effect, the staff is leaving the University.
      */
     public void terminateStaff(StaffID id) {
-        Set<Staff> staff = staffs.stream().filter(stf -> stf.getStaffID().equals(id)).collect(Collectors.toSet());
+        Staff staff = getMtchingStaff(id);
 
-        Staff stf = staff.stream().findFirst().get();
         try {
-            if (staffs.contains(stf)) {
-                staffs.remove(stf);
+            if (staffs.contains(staff)) {
+                staffs.remove(staff);
             } else {
                 throw new Exception(id + "doesn't exist");
             }
