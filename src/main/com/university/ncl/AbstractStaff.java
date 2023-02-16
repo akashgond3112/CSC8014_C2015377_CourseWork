@@ -15,6 +15,7 @@ public abstract class AbstractStaff implements Staff {
 
     public static final String LECTURER = "Lecturer";
     public static final String RESEARCHER = "Researcher";
+    public static final String SERIAL_NO = "0be7cd90-3498-4b09-9b36-8e4bbddc859f";
     private static final Map<String, Staff> staffMap = new HashMap<>();
     private final String staffType;
     private final String employmentStatus;
@@ -34,8 +35,8 @@ public abstract class AbstractStaff implements Staff {
         // As per the discussion with the instructor we were told that , we should not allow a staff who is having the same and staff type.
         // for e.g. code should not create an object if try to add name as : "Akash Gond" and staff type as a "Lecturer" 2 times.
         // Inorder to achieve that we can create a unique ID which will be the combination of the below filed.
-        // generate a unique ID with a combination of first name + last name and staffType  e.g Akash_Gond_Lecturer or Akash_Gond_Researcher
-        final String uniqueId = firstName + "_" + lastName + "_" + staffType;
+        // generate a unique ID with a combination of first name + last name and staffType  e.g SERIAL_NO_Akash_Gond_Lecturer_SERIAL_NO or Akash_Gond_Researcher
+        final String uniqueId = SERIAL_NO + "_" + firstName + "_" + lastName + "_" + staffType + "_" + SERIAL_NO;
 
         // check is uniqueId already exist
         Staff staff = staffMap.get(uniqueId);

@@ -4,18 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="124ef83d-e77f-4685-a538-1456d4dc7765" name="Changes" comment="Added test for staff manager class">
-      <change afterPath="$PROJECT_DIR$/src/test/java/LecturerTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/NameTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ReasearcherTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/SmartCardTest.java" afterDir="false" />
+    <list default="true" id="124ef83d-e77f-4685-a538-1456d4dc7765" name="Changes" comment="Update code to use mao instead of set and generate unique ID to store staff object">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/com/university/ncl/AbstractStaff.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/com/university/ncl/AbstractStaff.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/com/university/ncl/Lecturer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/com/university/ncl/Lecturer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/com/university/ncl/Name.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/com/university/ncl/Name.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/com/university/ncl/Researcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/com/university/ncl/Researcher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/com/university/ncl/StaffManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/com/university/ncl/StaffManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/StaffManagerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/StaffManagerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/com/university/ncl/SmartCardNumber.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/com/university/ncl/SmartCardNumber.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/com/university/ncl/StaffID.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/com/university/ncl/StaffID.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,7 +97,7 @@
       <workItem from="1676470786697" duration="10896000" />
       <workItem from="1676537118278" duration="74000" />
       <workItem from="1676542465556" duration="611000" />
-      <workItem from="1676556734836" duration="13901000" />
+      <workItem from="1676556734836" duration="15691000" />
     </task>
     <task id="LOCAL-00001" summary="added test class and method to test the code">
       <created>1676223070812</created>
@@ -155,7 +148,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676559419679</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Update code to use mao instead of set and generate unique ID to store staff object">
+      <created>1676584455247</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1676584455247</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -167,7 +167,8 @@
     <MESSAGE value="Fixed the code and removed unnecessary condition" />
     <MESSAGE value="Fixed the code and equals and hash code method" />
     <MESSAGE value="Added test for staff manager class" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added test for staff manager class" />
+    <MESSAGE value="Update code to use mao instead of set and generate unique ID to store staff object" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update code to use mao instead of set and generate unique ID to store staff object" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -186,21 +187,6 @@
           <url>file://$PROJECT_DIR$/src/test/java/StaffManagerTest.java</url>
           <line>138</line>
           <option name="timeStamp" value="103" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/com/university/ncl/AbstractStaff.java</url>
-          <line>37</line>
-          <option name="timeStamp" value="104" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/com/university/ncl/AbstractStaff.java</url>
-          <line>40</line>
-          <option name="timeStamp" value="105" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/com/university/ncl/AbstractStaff.java</url>
-          <line>43</line>
-          <option name="timeStamp" value="106" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

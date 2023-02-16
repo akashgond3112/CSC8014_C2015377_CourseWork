@@ -27,11 +27,13 @@ public final class SmartCardNumber {
         String smtCardNo = nameInitial + "-" + serialNumber + "-" + currentYear.get(Calendar.YEAR);
 
         SmartCardNumber smartCardNumber = SMART_CARD_NUMBER_MAP.get(smtCardNo);
-        if (smartCardNumber == null) {
+        if (smartCardNumber != null) {
+            // If we get the matching smartCardNumber generate the smart card number again by doing recursive call to avoid duplicates, until we get a unique smartCardNumber.
+            getInstance(firstName, lastName, dateOfIssue);
+        } else {
             smartCardNumber = new SmartCardNumber(smtCardNo, nameInitial, serialNumber, currentYear);
             SMART_CARD_NUMBER_MAP.put(smtCardNo, smartCardNumber);
         }
-
         return smartCardNumber;
     }
 
