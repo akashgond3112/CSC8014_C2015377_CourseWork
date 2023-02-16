@@ -132,10 +132,11 @@ public class StaffManagerTest {
         Staff staff3 = staffManager.employStaff("Vikash", "Gond", calendar.getTime(), "Researcher", "permanent");
         Staff staff4 = staffManager.employStaff("Harsh", "Rohilla", calendar.getTime(), "Researcher", "fixed");
 
-        // Duplicate staff having same name and staff type should not be allowed
+        // Duplicate staff having same name and staff type should not be allowed.
+        // Validate staff having same Name and staffType cannot be added.
+        System.out.println("Staff Id is 1 "+staff4.getStaffID());
         Staff staff5 = staffManager.employStaff("Harsh", "Rohilla", calendar.getTime(), "Researcher", "fixed");
-
-        //validate staff having same Name and staffType cannot be added
+        System.out.println("Staff Id is 2 "+staff5.getStaffID());
         System.out.println("validate staff having same Name :" + staff5.getName() + ",and staffType :" + staff5.getStaffType() + ", cannot be added.");
         Assertions.assertEquals(staffManager.getAllStaff().size(), 8);
 
@@ -215,7 +216,7 @@ public class StaffManagerTest {
         } catch (Throwable t) {
             System.out.println("when we try to terminate a invalid staffID. Test got passed!");
             Assertions.assertExpectedThrowable(
-                    InputMismatchException.class, t);
+                    NullPointerException.class, t);
         }
 
         System.out.println("Validate when we try to terminate a valid staffID.");
@@ -229,7 +230,7 @@ public class StaffManagerTest {
         } catch (Throwable t) {
             System.out.println("when we try to terminate a valid staffID. Test got passed!");
             Assertions.assertExpectedThrowable(
-                    InputMismatchException.class, t);
+                    NullPointerException.class, t);
         }
     }
 

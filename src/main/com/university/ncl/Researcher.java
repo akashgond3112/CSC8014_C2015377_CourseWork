@@ -21,10 +21,10 @@ public final class Researcher extends AbstractStaff {
     private final Set<Name> studentSupervised = new HashSet<>();
 
     /**
-     * @see AbstractStaff#AbstractStaff(Name, String, String, StaffID)
+     * @see AbstractStaff#AbstractStaff(String, String, String, String)
      */
-    public Researcher(Name name, String staffType, StaffID staffID,String employmentStatus) {
-        super(name, staffType, employmentStatus, staffID);
+    public Researcher(String firstName, String lastName, String staffType,String employmentStatus) {
+        super( firstName,  lastName, staffType, employmentStatus);
     }
 
     public String getRESEARCHER() {

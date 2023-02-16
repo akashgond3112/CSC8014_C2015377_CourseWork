@@ -1,6 +1,7 @@
 package main.com.university.ncl;
 
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.Map;
 import java.util.Objects;
 
@@ -14,41 +15,52 @@ public abstract class AbstractStaff implements Staff {
 
     public static final String LECTURER = "Lecturer";
     public static final String RESEARCHER = "Researcher";
-    private static final Map<StaffID, Staff> staffMap = new HashMap<StaffID, Staff>();
+    private static final Map<String, Staff> staffMap = new HashMap<>();
     private final String staffType;
     private final String employmentStatus;
     private SmartCard smartCard;
     private final StaffID staffID;
     private final Name name;
 
-    AbstractStaff(Name name, String staffType, String employmentStatus, StaffID staffID) {
-        this.name = new Name(name.getFirstName(), name.getLastName());
+    AbstractStaff(String firstName, String lastName, String staffType, String employmentStatus) {
+        this.name = new Name(firstName, lastName);
         this.staffType = staffType;
         this.employmentStatus = employmentStatus;
-        this.staffID = staffID;
+        this.staffID = StaffID.getInstance();
     }
 
-    public static Staff getInstance(String staffType, Name name, String employmentStatus) {
+    public static Staff getInstance(String staffType, String firstName, String lastName, String employmentStatus) {
 
-        // generate a staff ID
-        final StaffID staffID = StaffID.getInstance();
+        // As per the discussion with the instructor we were told that , we should not allow a staff who is having the same and staff type.
+        // for e.g. code should not create an object if try to add name as : "Akash Gond" and staff type as a "Lecturer" 2 times.
+        // Inorder to achieve that we can create a unique ID which will be the combination of the below filed.
+        // generate a unique ID with a combination of first name + last name and staffType  e.g Akash_Gond_Lecturer or Akash_Gond_Researcher
+        final String uniqueId = firstName + "_" + lastName + "_" + staffType;
 
-        // check is staffId already exist
-        Staff staff = staffMap.get(staffID);
+        // check is uniqueId already exist
+        Staff staff = staffMap.get(uniqueId);
 
         // if not null return matching staff
         if (staff != null) return staff;
 
         if (staffType.equals(LECTURER)) {
-            staff = new Lecturer(name, staffType, staffID,employmentStatus);
+            staff = new Lecturer(firstName, lastName, staffType, employmentStatus);
+        } else if (staffType.equals(RESEARCHER)) {
+            staff = new Researcher(firstName, lastName, staffType, employmentStatus);
         } else {
-            staff = new Researcher(name, staffType, staffID,employmentStatus);
+            throw new InputMismatchException("Invalid staff type provided!");
         }
 
-        staffMap.put(staffID, staff);
+        staffMap.put(uniqueId, staff);
         return staff;
     }
 
+    /**
+     * Returns the Staff type.
+     * a Staff can be either a Lecturer or a Researcher
+     *
+     * @return a string (Lecturer or Researcher)
+     */
     public String getStaffType() {
         return staffType;
     }
@@ -98,18 +110,5 @@ public abstract class AbstractStaff implements Staff {
      */
     public void setSmartCard(SmartCard smartCard) {
         this.smartCard = smartCard;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof AbstractStaff)) return false;
-        AbstractStaff that = (AbstractStaff) o;
-        return getStaffType().equals(that.getStaffType()) && getName().equals(that.getName());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getStaffType(), getName());
     }
 }

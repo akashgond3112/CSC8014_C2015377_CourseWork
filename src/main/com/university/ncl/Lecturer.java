@@ -23,10 +23,10 @@ public final class Lecturer extends AbstractStaff {
     private final Set<Module> moduleSet = new HashSet<>();
 
     /**
-     * @see AbstractStaff#AbstractStaff(Name, String, String, StaffID)
+     * @see AbstractStaff#AbstractStaff(String,String, String, String)
      */
-    public Lecturer(Name name, String staffType, StaffID staffID,String employmentStatus) {
-        super(name, staffType, employmentStatus, staffID);
+    public Lecturer(String firstName, String lastName, String staffType,String employmentStatus) {
+        super( firstName,  lastName, staffType, employmentStatus);
     }
 
     /**

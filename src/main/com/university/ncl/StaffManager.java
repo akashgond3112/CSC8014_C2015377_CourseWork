@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  */
 public class StaffManager {
 
-    HashSet<Staff> staffs = new HashSet<>();
+    HashMap<StaffID, Staff> staffs = new HashMap<>();
     Set<Module> moduleSet = new HashSet<>();
     Set<Name> studentNameSet = new HashSet<>();
 
@@ -120,11 +120,8 @@ public class StaffManager {
         if (!isValidAge(dob))
             throw new InputMismatchException("The provided date of birth is not meeting the criteria. Age should be between 22-67.");
 
-        // create a name object
-        final Name name = new Name(firstName, lastName);
-
         // create a staff object based on the staff type
-        final Staff staff = AbstractStaff.getInstance(staffType, name, employmentStatus);
+        final Staff staff = AbstractStaff.getInstance(staffType, firstName, lastName, employmentStatus);
 
         // Here we will call the criteria before creating the smart card,which will return boolean value
         if (checkSmartCardEligibility(staff, dob)) {
@@ -141,7 +138,7 @@ public class StaffManager {
             }
         }
         // creat a record of all the staff employed and return it
-        staffs.add(staff);
+        staffs.put(staff.getStaffID(), staff);
         return staff;
     }
 
@@ -212,7 +209,7 @@ public class StaffManager {
      */
     public Collection<Staff> getAllStaff() {
         //add your code here. Do NOT change the method signature
-        return staffs;
+        return staffs.values();
     }
 
     /**
@@ -223,8 +220,8 @@ public class StaffManager {
      */
     public int noOfStaff(String type) {
         int counter = 0;
-        for (Staff staff : staffs) {
-            if (staff.getStaffType().equals(type)) {
+        for (Map.Entry<StaffID, Staff> entry : staffs.entrySet()) {
+            if (entry.getValue().getStaffType().equals(type)) {
                 counter++;
             }
         }
@@ -232,19 +229,12 @@ public class StaffManager {
     }
 
     /**
-     * @param id, expect the StaffID object as param
+     * @param staffID, expect the StaffID object as param
      *            This method removes the staff record associated with the given staff id. In
      *            effect, the staff is leaving the University.
      */
-    public void terminateStaff(StaffID id) {
-        Staff staff = getMtchingStaff(id);
-
-        if (staffs.contains(staff)) {
-            staffs.remove(staff);
-        } else {
-            throw new InputMismatchException(id + "doesn't exist");
-        }
-
+    public void terminateStaff(StaffID staffID) {
+        staffs.remove(staffID);
     }
 
     /**
@@ -286,14 +276,7 @@ public class StaffManager {
     }
 
     public Staff getMtchingStaff(StaffID staffID) {
-        for (Staff staff : staffs) {
-            if (staff.getStaffID().equals(staffID) && staff instanceof Lecturer) {
-                return staff;
-            } else if (staff.getStaffID().equals(staffID) && staff instanceof Researcher) {
-                return staff;
-            }
-        }
-        return null;
+        return staffs.get(staffID);
     }
 
     public boolean validateIfProvidedInputIsInteger(String input) {
