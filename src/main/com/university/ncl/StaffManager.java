@@ -146,22 +146,6 @@ public class StaffManager {
     }
 
     /**
-     * @param type , either can be permanent or fixed type
-     * @return total no of staff based on staff type provided
-     * This method returns the number of staff of the specified type (a lecturer or a
-     * researcher) that are currently employed
-     */
-    public int noOfStaff(String type) {
-        int counter = 0;
-        for (Staff staff : staffs) {
-            if (staff.getStaffType().equals(type)) {
-                counter++;
-            }
-        }
-        return counter;
-    }
-
-    /**
      * @param id       , expect StaffID object to be provided
      * @param modules  , Set of the modules which is to be assigned to the above given StaffId
      * @param students , Set of all the student who are going to be supervised by the above given StaffId
@@ -232,6 +216,22 @@ public class StaffManager {
     }
 
     /**
+     * @param type , either can be permanent or fixed type
+     * @return total no of staff based on staff type provided
+     * This method returns the number of staff of the specified type (a lecturer or a
+     * researcher) that are currently employed
+     */
+    public int noOfStaff(String type) {
+        int counter = 0;
+        for (Staff staff : staffs) {
+            if (staff.getStaffType().equals(type)) {
+                counter++;
+            }
+        }
+        return counter;
+    }
+
+    /**
      * @param id, expect the StaffID object as param
      *            This method removes the staff record associated with the given staff id. In
      *            effect, the staff is leaving the University.
@@ -239,15 +239,12 @@ public class StaffManager {
     public void terminateStaff(StaffID id) {
         Staff staff = getMtchingStaff(id);
 
-        try {
-            if (staffs.contains(staff)) {
-                staffs.remove(staff);
-            } else {
-                throw new Exception(id + "doesn't exist");
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        if (staffs.contains(staff)) {
+            staffs.remove(staff);
+        } else {
+            throw new InputMismatchException(id + "doesn't exist");
         }
+
     }
 
     /**
