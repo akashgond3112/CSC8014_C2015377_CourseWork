@@ -125,16 +125,15 @@ public class StaffManager {
 
         // Here we will call the criteria before creating the smart card,which will return boolean value
         if (checkSmartCardEligibility(staff, dob)) {
-            final SmartCard smartCard = new SmartCard(staff.getStaffEmploymentStatus(), staff.getName(), dob); // create the smart card object , if the criteria satisfy
-
             // check the staff type based on that we creat an object of  staff and cast it, so that we can call the setSmartCard method from the
             // Abstract class i.e. StaffManager where it is defined
+            // Also, check if staff is already assigned with smart card or not if issued cannot be re-issued.
             if (staffType.equals(Lecturer.LECTURER)) {
                 final Lecturer lecturer = (Lecturer) staff;
-                lecturer.setSmartCard(smartCard);
+                lecturer.setSmartCard(new SmartCard(staff.getStaffEmploymentStatus(), staff.getName(), dob));
             } else {
                 final Researcher researcher = (Researcher) staff;
-                researcher.setSmartCard(smartCard);
+                researcher.setSmartCard(new SmartCard(staff.getStaffEmploymentStatus(), staff.getName(), dob));
             }
         }
         // creat a record of all the staff employed and return it
@@ -230,8 +229,8 @@ public class StaffManager {
 
     /**
      * @param staffID, expect the StaffID object as param
-     *            This method removes the staff record associated with the given staff id. In
-     *            effect, the staff is leaving the University.
+     *                 This method removes the staff record associated with the given staff id. In
+     *                 effect, the staff is leaving the University.
      */
     public void terminateStaff(StaffID staffID) {
         staffs.remove(staffID);
@@ -254,8 +253,6 @@ public class StaffManager {
         //A staff must be at least 22 years old and at most 67 (retirement age is 68).
         return isValidAge(dob);
 
-        // TODO: Need to implement this conditions , need to check the below criteria
-        //A staff cannot be both a researcher and a lecturer.
     }
 
     /**
