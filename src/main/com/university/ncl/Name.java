@@ -29,7 +29,7 @@ public class Name {
 
     @Override
     public String toString() {
-        return this.firstName + " " + this.lastName;
+        return (this.firstName + " " + this.lastName);
     }
 
 }

@@ -127,26 +127,19 @@ public class StaffManager {
         if (!(employmentStatus.equals(SmartCard.PERMANENT) || employmentStatus.equals(SmartCard.FIXED)))
             throw new InputMismatchException("Employment type is not matching!");
 
-        // validate age criteria
+        // validate DOB
+        // * • A staff must be at least 22 years old and at most 67 (retirement age is 68).
         if (!isValidAge(dob))
-            throw new InputMismatchException("The provided date of birth is not meeting the criteria. Age should be between 22-67.");
+            throw new InputMismatchException("Staff doesn't hav the valid age!");
+
+        // validate criteria for creating staff
+        if (!checkStaffEligibility(firstName, lastName, staffType, dob))
+            throw new InputMismatchException("The provided data is not meeting the staff eligibility.");
+
 
         // create a staff object based on the staff type
-        final Staff staff = AbstractStaff.getInstance(staffType, firstName, lastName, employmentStatus);
+        final Staff staff = AbstractStaff.getInstance(staffType, firstName, lastName, employmentStatus, dob);
 
-        // Here we will call the criteria before creating the smart card,which will return boolean value
-        if (checkSmartCardEligibility(staff, dob)) {
-            // check the staff type based on that we creat an object of  staff and cast it, so that we can call the setSmartCard method from the
-            // Abstract class i.e. StaffManager where it is defined
-            // Also, check if staff is already assigned with smart card or not if issued cannot be re-issued.
-            if (staffType.equals(Lecturer.LECTURER)) {
-                final Lecturer lecturer = (Lecturer) staff;
-                lecturer.setSmartCard(new SmartCard(staff.getStaffEmploymentStatus(), staff.getName(), dob));
-            } else {
-                final Researcher researcher = (Researcher) staff;
-                researcher.setSmartCard(new SmartCard(staff.getStaffEmploymentStatus(), staff.getName(), dob));
-            }
-        }
         // creat a record of all the staff employed and return it
         staffs.put(staff.getStaffID(), staff);
         return staff;
@@ -248,22 +241,38 @@ public class StaffManager {
     }
 
     /**
-     * @param staff, expect Staff object as parameter
-     * @param dob,   expect Date of birth as parameter
+     * @param firstName, expect Staff object as parameter
+     * @param lastName,  expect Staff object as parameter
+     * @param staffType, expect Staff object as parameter
+     * @param dob,       expect Date of birth as parameter
      * @return true or false
      * When issuing a smart card, the following rules must be observed.
-     * • A staff must be at least 22 years old and at most 67 (retirement age is 68).
      * • A staff cannot be both a researcher and a lecturer.
      * • A staff cannot be issued with more than one smart-card (i.e. do not try to deal with lost cards!)
      */
-    public boolean checkSmartCardEligibility(Staff staff, Date dob) {
+    public boolean checkStaffEligibility(String firstName, String lastName, String staffType, Date dob) {
+        // A staff cannot be both a researcher and a lecturer.
+        Name name = new Name(firstName, lastName);
+        for (Map.Entry<StaffID, Staff> entry : staffs.entrySet()) {
 
-        //A staff cannot be issued with more than one smart-card
-        if (staff.getSmartCard() != null) return false;
-
-        //A staff must be at least 22 years old and at most 67 (retirement age is 68).
-        return isValidAge(dob);
-
+            if (entry.getValue().getName().toString().equals(name.toString())) {
+                // A staff cannot be issued with more than one smart-card (i.e. do not try to deal with lost cards!)
+                if (entry.getValue().getSmartCard() != null) {
+                    return false;
+                }
+                // first get the matching staff having the same name from the staffs object and check if it's having the same staff type
+                // Also we need to validate if the matching staff (i.e. same name ) is trying to register with different staff type, we shouldn't allow.
+                if (entry.getValue().getStaffType().equals(Lecturer.LECTURER)) {
+                    return false;
+                } else if (entry.getValue().getStaffType().equals(Researcher.RESEARCHER)) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        }
+        // this condition is when we have no staff at all.
+        return true;
     }
 
     /**

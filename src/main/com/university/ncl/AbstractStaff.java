@@ -1,9 +1,6 @@
 package main.com.university.ncl;
 
-import java.util.HashMap;
-import java.util.InputMismatchException;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @author akash.gond
@@ -19,18 +16,19 @@ public abstract class AbstractStaff implements Staff {
     private static final Map<String, Staff> staffMap = new HashMap<>();
     private final String staffType;
     private final String employmentStatus;
-    private SmartCard smartCard;
+    private final SmartCard smartCard;
     private final StaffID staffID;
     private final Name name;
 
-    AbstractStaff(String firstName, String lastName, String staffType, String employmentStatus) {
+    AbstractStaff(String firstName, String lastName, String staffType, String employmentStatus, Date dob) {
         this.name = new Name(firstName, lastName);
         this.staffType = staffType;
         this.employmentStatus = employmentStatus;
         this.staffID = StaffID.getInstance();
+        this.smartCard = new SmartCard(this.employmentStatus, this.name, dob);
     }
 
-    public static Staff getInstance(String staffType, String firstName, String lastName, String employmentStatus) {
+    public static Staff getInstance(String staffType, String firstName, String lastName, String employmentStatus, Date dob) {
 
         // As per the discussion with the instructor we were told that , we should not allow a staff who is having the same and staff type.
         // for e.g. code should not create an object if try to add name as : "Akash Gond" and staff type as a "Lecturer" 2 times.
@@ -45,9 +43,9 @@ public abstract class AbstractStaff implements Staff {
         if (staff != null) return staff;
 
         if (staffType.equals(LECTURER)) {
-            staff = new Lecturer(firstName, lastName, staffType, employmentStatus);
+            staff = new Lecturer(firstName, lastName, staffType, employmentStatus, dob);
         } else if (staffType.equals(RESEARCHER)) {
-            staff = new Researcher(firstName, lastName, staffType, employmentStatus);
+            staff = new Researcher(firstName, lastName, staffType, employmentStatus, dob);
         } else {
             throw new InputMismatchException("Invalid staff type provided!");
         }
@@ -73,7 +71,7 @@ public abstract class AbstractStaff implements Staff {
      * @return the Name object
      */
     public Name getName() {
-        return new Name(this.name.getFirstName(), this.name.getLastName());
+        return this.name;
     }
 
     /**
@@ -104,12 +102,5 @@ public abstract class AbstractStaff implements Staff {
      */
     public SmartCard getSmartCard() {
         return this.smartCard;
-    }
-
-    /**
-     * @param smartCard , expect smart card object
-     */
-    public void setSmartCard(SmartCard smartCard) {
-        this.smartCard = new SmartCard(smartCard.getEmploymentStatus(), smartCard.getName(), smartCard.getDateOfBirth());
     }
 }

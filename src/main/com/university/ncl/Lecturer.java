@@ -1,5 +1,6 @@
 package main.com.university.ncl;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.InputMismatchException;
 import java.util.Set;
@@ -25,8 +26,8 @@ public final class Lecturer extends AbstractStaff {
     /**
      * @see AbstractStaff#AbstractStaff(String, String, String, String)
      */
-    public Lecturer(String firstName, String lastName, String staffType, String employmentStatus) {
-        super(firstName, lastName, staffType, employmentStatus);
+    public Lecturer(String firstName, String lastName, String staffType, String employmentStatus, Date dob) {
+        super(firstName, lastName, staffType, employmentStatus, dob);
     }
 
     /**

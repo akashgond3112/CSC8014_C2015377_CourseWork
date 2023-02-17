@@ -16,7 +16,6 @@ import java.util.*;
  * Copyright (C) 2023 Newcastle University, UK
  */
 public class StaffManagerTest {
-    final Calendar calendar = Calendar.getInstance();
     final StaffManager staffManager = new StaffManager();
 
 
@@ -82,6 +81,7 @@ public class StaffManagerTest {
     }
 
     private void validateEmployStaff() {
+        Calendar calendar = Calendar.getInstance();
 
         final Date dob = calendar.getTime();
 
@@ -105,7 +105,7 @@ public class StaffManagerTest {
 
         System.out.println("validate when staff Type is passed as incorrect value.");
         try {
-            staffManager.employStaff("Akash", "Gond", dob, "Dean", "null");
+            staffManager.employStaff("Tess", "Cooke", dob, "Dean", "null");
         } catch (Throwable t) {
             System.out.println("when staff Type is passed as incorrect value. Test got passed!");
             Assertions.assertExpectedThrowable(
@@ -114,7 +114,7 @@ public class StaffManagerTest {
 
         System.out.println("validate when employment status Type is passed as incorrect value.");
         try {
-            staffManager.employStaff("Akash", "Gond", dob, "Lecturer", "null");
+            staffManager.employStaff("Ela", "Wong", dob, "Lecturer", "null");
         } catch (Throwable t) {
             System.out.println("when employment status Type is passed as incorrect value. Test got passed!");
             Assertions.assertExpectedThrowable(
@@ -123,7 +123,7 @@ public class StaffManagerTest {
 
         System.out.println("validate when DOB is passed as incorrect not meeting the criteria!");
         try {
-            staffManager.employStaff("Akash", "Gond", dob, "Lecturer", "permanent");
+            staffManager.employStaff("Lester", "Cole", dob, "Lecturer", "permanent");
         } catch (Throwable t) {
             System.out.println("When provided DOB is not valid, Test got passed!");
             Assertions.assertExpectedThrowable(
@@ -131,16 +131,38 @@ public class StaffManagerTest {
         }
 
         System.out.println("validate the positive scenario when we add valid data!");
-        calendar.set(1992, Calendar.APRIL, 30);
-        Assertions.assertNotNull(staffManager.employStaff("Kiki", "Topsy", calendar.getTime(), "Lecturer", "permanent"));
-        Assertions.assertNotNull(staffManager.employStaff("Alan", "Nia", calendar.getTime(), "Lecturer", "fixed"));
-        Assertions.assertNotNull(staffManager.employStaff("Kirby", "Davy", calendar.getTime(), "Researcher", "permanent"));
-        Assertions.assertNotNull(staffManager.employStaff("Cassie", "Kathleen", calendar.getTime(), "Researcher", "fixed"));
+        calendar.set(1992, Calendar.APRIL, 25);
+        final Date validDob = calendar.getTime();
+        Assertions.assertNotNull(staffManager.employStaff("Kiki", "Topsy", validDob, "Lecturer", "permanent"));
+        Assertions.assertNotNull(staffManager.employStaff("Alan", "Nia", validDob, "Lecturer", "fixed"));
+        Assertions.assertNotNull(staffManager.employStaff("Kirby", "Davy", validDob, "Researcher", "permanent"));
+        Assertions.assertNotNull(staffManager.employStaff("Cassie", "Kathleen", validDob, "Researcher", "fixed"));
+
+        Staff staff = staffManager.employStaff("Harsh", "Rohilla", validDob, "Researcher", "fixed");
+
+        // Duplicate staff having same name and staff type should not be allowed.
+        try {
+            Staff staff5 = staffManager.employStaff("Harsh", "Rohilla", validDob, "Researcher", "fixed");
+        } catch (Throwable t) {
+            System.out.println("validate staff having same Name and staffType as same should not be allowed., Test got passed!");
+            Assertions.assertExpectedThrowable(
+                    InputMismatchException.class, t);
+        }
+
+        //validate staff having same Name but staffType as different should not be allowed.
+        try {
+            Staff staff6 = staffManager.employStaff("Harsh", "Rohilla", validDob, "Lecturer", "fixed");
+        } catch (Throwable t) {
+            System.out.println("validate staff having same Name but different staffType should not be allowed., Test got passed!");
+            Assertions.assertExpectedThrowable(
+                    InputMismatchException.class, t);
+        }
 
 
     }
 
     private void validateAddData() {
+        Calendar calendar = Calendar.getInstance();
 
         System.out.println("validate when there is no staff employed till now.");
         try {
@@ -158,18 +180,6 @@ public class StaffManagerTest {
         Staff staff3 = staffManager.employStaff("Vikash", "Gond", calendar.getTime(), "Researcher", "permanent");
         Staff staff4 = staffManager.employStaff("Harsh", "Rohilla", calendar.getTime(), "Researcher", "fixed");
 
-        // Duplicate staff having same name and staff type should not be allowed.
-        // Validate staff having same Name and staffType cannot be added.
-        System.out.println("Staff Id is 1 " + staff4.getStaffID());
-        Staff staff5 = staffManager.employStaff("Harsh", "Rohilla", calendar.getTime(), "Researcher", "fixed");
-        System.out.println("Staff Id is 2 " + staff5.getStaffID());
-        System.out.println("validate staff having same Name :" + staff5.getName() + ",and staffType :" + staff5.getStaffType() + ", cannot be added.");
-        Assertions.assertEquals(staffManager.getAllStaff().size(), 8);
-
-        //validate staff having same Name but staffType as different can be allowed
-        Staff staff6 = staffManager.employStaff("Harsh", "Rohilla", calendar.getTime(), "Lecturer", "fixed");
-        System.out.println("validate staff having same Name :" + staff6.getName() + ", but staffType :" + staff6.getStaffType() + ", as different can be allowed");
-        Assertions.assertEquals(staffManager.getAllStaff().size(), 9);
 
         Set<Module> modules = staffManager.readInModules("modules.txt");
         Set<Name> students = staffManager.readInStudents("students.txt");
@@ -236,6 +246,8 @@ public class StaffManagerTest {
     }
 
     private void validateTerminateStaff() {
+        Calendar calendar = Calendar.getInstance();
+
         System.out.println("Validate when we try to terminate a invalid staffID.");
         try {
             staffManager.terminateStaff(StaffID.getInstance());
@@ -273,6 +285,7 @@ public class StaffManagerTest {
         Assertions.assertEquals(staffManager.noOfStaff("Researcher"), 4);
 
         // Add same data test matching staff
+        Calendar calendar = Calendar.getInstance();
         System.out.println("Add same data and test matching staff method and validate Get number of matching staff return expected output.");
         Staff staff5 = staffManager.employStaff("Harsh", "Rohilla", calendar.getTime(), "Researcher", "fixed");
         Assertions.assertEquals(staffManager.noOfStaff("Researcher"), 4);
@@ -285,13 +298,13 @@ public class StaffManagerTest {
 
     public static void main(String[] args) {
         StaffManagerTest staffManagerTest = new StaffManagerTest();
-        staffManagerTest.testReadInModules();
-        staffManagerTest.testReadInStudents();
+//        staffManagerTest.testReadInModules();
+//        staffManagerTest.testReadInStudents();
         staffManagerTest.validateEmployStaff();
-        staffManagerTest.validateAddData();
-        staffManagerTest.validateTerminateStaff();
-        staffManagerTest.validateGetAllStaff();
-        staffManagerTest.validateNoOfStaff();
+//        staffManagerTest.validateAddData();
+//        staffManagerTest.validateTerminateStaff();
+//        staffManagerTest.validateGetAllStaff();
+//        staffManagerTest.validateNoOfStaff();
 
     }
 

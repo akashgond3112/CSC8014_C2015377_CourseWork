@@ -1,9 +1,6 @@
 package main.com.university.ncl;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public final class SmartCardNumber {
     private static final Map<String, SmartCardNumber> SMART_CARD_NUMBER_MAP = new HashMap<String, SmartCardNumber>();
@@ -20,6 +17,8 @@ public final class SmartCardNumber {
     }
 
     public static SmartCardNumber getInstance(String firstName, String lastName, Date dateOfIssue) {
+        if (firstName == null && lastName == null && dateOfIssue == null)
+            throw new InputMismatchException("Check the parameter inside the smart card number get instance method , cannot be null.");
         nameInitial = firstName.substring(0, 1) + lastName.substring(0, 1);
         serialNumber = (int) (Math.random() * 100);
         currentYear.setTime(dateOfIssue);

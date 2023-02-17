@@ -1,5 +1,6 @@
 package main.com.university.ncl;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,8 +24,8 @@ public final class Researcher extends AbstractStaff {
     /**
      * @see AbstractStaff#AbstractStaff(String, String, String, String)
      */
-    public Researcher(String firstName, String lastName, String staffType, String employmentStatus) {
-        super(firstName, lastName, staffType, employmentStatus);
+    public Researcher(String firstName, String lastName, String staffType, String employmentStatus, Date dob) {
+        super(firstName, lastName, staffType, employmentStatus,dob);
     }
 
     public String getRESEARCHER() {
