@@ -4,11 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="124ef83d-e77f-4685-a538-1456d4dc7765" name="Changes" comment="Update code to use mao instead of set and generate unique ID to store staff object">
+    <list default="true" id="124ef83d-e77f-4685-a538-1456d4dc7765" name="Changes" comment="minor update">
+      <change afterPath="$PROJECT_DIR$/modules_dummy.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/com/university/ncl/AbstractStaff.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/com/university/ncl/AbstractStaff.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/com/university/ncl/SmartCardNumber.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/com/university/ncl/SmartCardNumber.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/com/university/ncl/StaffID.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/com/university/ncl/StaffID.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/com/university/ncl/Lecturer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/com/university/ncl/Lecturer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/com/university/ncl/Module.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/com/university/ncl/Module.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/com/university/ncl/Researcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/com/university/ncl/Researcher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/com/university/ncl/SmartCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/com/university/ncl/SmartCard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/com/university/ncl/StaffManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/com/university/ncl/StaffManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/LecturerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/LecturerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/NameTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/NameTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ReasearcherTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ResearcherTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/StaffManagerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/StaffManagerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,6 +49,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/home/akash.gond/IdeaProjects/CSC8014_C2015377_CourseWork",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -53,7 +62,38 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.StaffManagerTest">
+    <configuration name="LecturerTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="test.java.LecturerTest" />
+      <module name="CSC8014_C2015377_CourseWork" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="test.java.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="NameTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="test.java.NameTest" />
+      <module name="CSC8014_C2015377_CourseWork" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="test.java.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="StaffManagerTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="test.java.StaffManagerTest" />
       <module name="CSC8014_C2015377_CourseWork" />
@@ -70,6 +110,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.StaffManagerTest" />
+        <item itemvalue="Application.LecturerTest" />
+        <item itemvalue="Application.NameTest" />
       </list>
     </recent_temporary>
   </component>
@@ -97,7 +139,7 @@
       <workItem from="1676470786697" duration="10896000" />
       <workItem from="1676537118278" duration="74000" />
       <workItem from="1676542465556" duration="611000" />
-      <workItem from="1676556734836" duration="15691000" />
+      <workItem from="1676556734836" duration="26397000" />
     </task>
     <task id="LOCAL-00001" summary="added test class and method to test the code">
       <created>1676223070812</created>
@@ -155,7 +197,21 @@
       <option name="project" value="LOCAL" />
       <updated>1676584455247</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Adding salting to generate unique ID and making a recursive call to generate unique ID always.">
+      <created>1676586290139</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1676586290139</updated>
+    </task>
+    <task id="LOCAL-00010" summary="minor update">
+      <created>1676587162558</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1676587162558</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -168,25 +224,17 @@
     <MESSAGE value="Fixed the code and equals and hash code method" />
     <MESSAGE value="Added test for staff manager class" />
     <MESSAGE value="Update code to use mao instead of set and generate unique ID to store staff object" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update code to use mao instead of set and generate unique ID to store staff object" />
+    <MESSAGE value="Adding salting to generate unique ID and making a recursive call to generate unique ID always." />
+    <MESSAGE value="minor update" />
+    <option name="LAST_COMMIT_MESSAGE" value="minor update" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/StaffManagerTest.java</url>
-          <line>137</line>
-          <option name="timeStamp" value="101" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/StaffManagerTest.java</url>
-          <line>139</line>
-          <option name="timeStamp" value="102" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/StaffManagerTest.java</url>
-          <line>138</line>
-          <option name="timeStamp" value="103" />
+          <url>file://$PROJECT_DIR$/src/main/com/university/ncl/SmartCard.java</url>
+          <line>19</line>
+          <option name="timeStamp" value="120" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

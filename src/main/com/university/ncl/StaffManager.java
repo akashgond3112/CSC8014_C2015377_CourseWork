@@ -37,6 +37,13 @@ public class StaffManager {
             while (fileInput.hasNextLine()) {
                 String line = fileInput.nextLine();
                 String[] lineArray = line.split(","); // split the sentences using String split inbuilt method.
+                if (lineArray.length < 4)
+                    throw new InputMismatchException("Please check the Module input data." + Arrays.toString(lineArray));
+
+                // validate each data for the input CSC8011, Introduction to Software Development, 1, 10, The last 2 data should always be Integer type n
+                // rest all as String
+                if (!validateIfProvidedInputIsInteger(lineArray[2]) && !validateIfProvidedInputIsInteger(lineArray[3]))
+                    throw new InputMismatchException("Provided entry should be integer " + lineArray[2] + lineArray[3]);
 
                 // adding the Module object to the set of the Modules.
                 moduleSet.add(new Module(lineArray[0].trim(), lineArray[1].trim(), Integer.parseInt(lineArray[2].trim()), Integer.parseInt(lineArray[3].trim())));
@@ -107,6 +114,10 @@ public class StaffManager {
         // validate provided input is String not int e.g. employmentStatus
         if (validateIfProvidedInputIsInteger(employmentStatus))
             throw new NumberFormatException("Provided input i.e employmentStatus cannot be int. It should be String!");
+
+        // validate provided input is String not int e.g. employmentStatus
+        if (validateIfProvidedInputIsInteger(staffType))
+            throw new NumberFormatException("Provided input i.e staffType cannot be int. It should be String!");
 
         // validate staff type can be only of type Lecturer and researcher
         if (!(staffType.equals(Lecturer.LECTURER) || staffType.equals(Researcher.RESEARCHER)))
@@ -279,12 +290,11 @@ public class StaffManager {
     public boolean validateIfProvidedInputIsInteger(String input) {
         int value = 0;
         try {
-            value = Integer.parseInt(input);
+            value = Integer.parseInt(input.trim());
             return true;
         } catch (NumberFormatException numberFormatException) {
             numberFormatException.getMessage();
         }
-
         return false;
     }
 }

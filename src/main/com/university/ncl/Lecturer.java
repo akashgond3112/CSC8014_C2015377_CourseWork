@@ -23,10 +23,10 @@ public final class Lecturer extends AbstractStaff {
     private final Set<Module> moduleSet = new HashSet<>();
 
     /**
-     * @see AbstractStaff#AbstractStaff(String,String, String, String)
+     * @see AbstractStaff#AbstractStaff(String, String, String, String)
      */
-    public Lecturer(String firstName, String lastName, String staffType,String employmentStatus) {
-        super( firstName,  lastName, staffType, employmentStatus);
+    public Lecturer(String firstName, String lastName, String staffType, String employmentStatus) {
+        super(firstName, lastName, staffType, employmentStatus);
     }
 
     /**
@@ -58,7 +58,7 @@ public final class Lecturer extends AbstractStaff {
      */
     public void setModule(Module module) {
         if (!moduleSet.contains(module)) {
-            moduleSet.add(module);
+            moduleSet.add(new Module(module.getCode(), module.getName(), module.getSemester(), module.getCreditScore()));
             totalCredits += module.getCreditScore();
         } else {
             System.out.println(module.getName() + " is already assigned to the Lectures , so now skipping the module.");
@@ -87,10 +87,6 @@ public final class Lecturer extends AbstractStaff {
         return this.totalCredits;
     }
 
-    public void setTotalCredits(int totalCredits) {
-        this.totalCredits = totalCredits;
-    }
-
     /**
      * @return Set<Module></Module>
      * a method to list the modules that a lecturer is assigned to. A module consists
@@ -99,6 +95,6 @@ public final class Lecturer extends AbstractStaff {
      * module (e.g. 10)
      */
     public Set<Module> getModuleSet() {
-        return moduleSet;
+        return new HashSet<Module>(this.moduleSet);
     }
 }

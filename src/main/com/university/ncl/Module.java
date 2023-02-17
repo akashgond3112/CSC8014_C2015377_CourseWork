@@ -51,5 +51,15 @@ public class Module {
         return Objects.hash(getName(), getCode(), getSemester(), getCreditScore());
     }
 
+    @Override
+    public String toString() {
+        return "Module{" +
+                "name='" + name + '\'' +
+                ", code='" + code + '\'' +
+                ", semester=" + semester +
+                ", creditScore=" + creditScore +
+                '}';
+    }
+
 
 }

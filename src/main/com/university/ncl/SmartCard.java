@@ -2,6 +2,7 @@ package main.com.university.ncl;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.InputMismatchException;
 import java.util.Objects;
 
 public class SmartCard {
@@ -14,13 +15,12 @@ public class SmartCard {
     private final Date dateOfBirth;
     private final Date dateOfIssue;
     private Date dateOfExpiry;
-    final Calendar calendar = Calendar.getInstance();
 
     public SmartCard(String employmentStatus, Name name, Date dob) {
         this.employmentStatus = employmentStatus;
-        this.name = name;
-        this.dateOfBirth = dob;
-        this.dateOfIssue = calendar.getTime();
+        this.name = new Name(name.getFirstName(), name.getLastName());
+        this.dateOfBirth = (Date) dob.clone();
+        this.dateOfIssue = Calendar.getInstance().getTime();
         this.smartCardNumber = SmartCardNumber.getInstance(this.name.getFirstName(), this.name.getLastName(), this.dateOfIssue);
         setExpiryDate();
     }
@@ -29,27 +29,27 @@ public class SmartCard {
      * @return which returns the expiry date of the card
      */
     public Date getExpiryDate() {
-        return dateOfExpiry;
+        return (Date) this.dateOfExpiry.clone();
     }
 
     public String getEmploymentStatus() {
         return employmentStatus;
     }
 
-    public String getName() {
-        return this.name.toString();
+    public Name getName() {
+        return new Name(this.name.getFirstName(), this.name.getLastName());
     }
 
     public SmartCardNumber getSmartCardNumber() {
-        return smartCardNumber;
+        return this.smartCardNumber;
     }
 
     public Date getDateOfBirth() {
-        return dateOfBirth;
+        return (Date) this.dateOfBirth.clone();
     }
 
     public Date getDateOfIssue() {
-        return dateOfIssue;
+        return (Date) this.dateOfIssue.clone();
     }
 
     /**
@@ -59,14 +59,17 @@ public class SmartCard {
      * the expiry date is set to the issue date plus ten years.
      */
     private void setExpiryDate() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(this.dateOfIssue);
+
         if (this.employmentStatus.equals(FIXED)) {
             calendar.add(Calendar.YEAR, 2);
         } else if (this.employmentStatus.equals(PERMANENT)) {
             calendar.add(Calendar.YEAR, 10);
         } else {
-            System.out.println("dd");
+            throw new InputMismatchException("Invalid employment status!");
         }
-        this.dateOfExpiry = calendar.getTime();
+        this.dateOfExpiry = (Date) calendar.getTime().clone();
     }
 
 }

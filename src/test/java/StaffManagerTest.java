@@ -20,11 +20,10 @@ public class StaffManagerTest {
     final StaffManager staffManager = new StaffManager();
 
 
-
     private void testReadInModules() {
         final StaffManager staffManager = new StaffManager();
 
-        System.out.println("validate proper error is thrown when we pass the incorrect file path.");
+        System.out.println("validate proper error is thrown when we pass the file path is empty for modules.");
         try {
             staffManager.readInModules("");
         } catch (Throwable t) {
@@ -33,7 +32,25 @@ public class StaffManagerTest {
                     IllegalArgumentException.class, t);
         }
 
-        System.out.println("validate set of module set is not null.");
+        System.out.println("validate proper error is thrown when we pass the file path is incorrect for modules.");
+        try {
+            staffManager.readInModules("mod.txt");
+        } catch (Throwable t) {
+            System.out.println("Test got passed!");
+            test.java.Assertions.assertExpectedThrowable(
+                    FileNotFoundException.class, t);
+        }
+
+        System.out.println("validate proper error is thrown when we pass data is incorrect for modules e.g. semester as string value.");
+        try {
+            staffManager.readInModules("modules_dummy.txt");
+        } catch (Throwable t) {
+            System.out.println("Test got passed!");
+            test.java.Assertions.assertExpectedThrowable(
+                    NumberFormatException.class, t);
+        }
+
+        System.out.println("validate when the path is correct for modules");
         Assertions.assertNotNull(staffManager.readInModules("modules.txt"));
 
     }
@@ -41,7 +58,7 @@ public class StaffManagerTest {
     private void testReadInStudents() {
         final StaffManager staffManager = new StaffManager();
 
-        System.out.println("validate proper error is thrown when we pass the incorrect file path.");
+        System.out.println("validate proper error is thrown when we pass the file path is empty fr students.");
         try {
             staffManager.readInStudents("");
         } catch (Throwable t) {
@@ -50,7 +67,16 @@ public class StaffManagerTest {
                     IllegalArgumentException.class, t);
         }
 
-        System.out.println("validate set of student set is not null.");
+        System.out.println("validate proper error is thrown when we pass the file path is incorrect for students.");
+        try {
+            staffManager.readInModules("stu.txt");
+        } catch (Throwable t) {
+            System.out.println("Test got passed!");
+            test.java.Assertions.assertExpectedThrowable(
+                    FileNotFoundException.class, t);
+        }
+
+        System.out.println("validate when the path is correct for students");
         Assertions.assertNotNull(staffManager.readInStudents("students.txt"));
 
     }
@@ -134,9 +160,9 @@ public class StaffManagerTest {
 
         // Duplicate staff having same name and staff type should not be allowed.
         // Validate staff having same Name and staffType cannot be added.
-        System.out.println("Staff Id is 1 "+staff4.getStaffID());
+        System.out.println("Staff Id is 1 " + staff4.getStaffID());
         Staff staff5 = staffManager.employStaff("Harsh", "Rohilla", calendar.getTime(), "Researcher", "fixed");
-        System.out.println("Staff Id is 2 "+staff5.getStaffID());
+        System.out.println("Staff Id is 2 " + staff5.getStaffID());
         System.out.println("validate staff having same Name :" + staff5.getName() + ",and staffType :" + staff5.getStaffType() + ", cannot be added.");
         Assertions.assertEquals(staffManager.getAllStaff().size(), 8);
 
@@ -209,7 +235,7 @@ public class StaffManagerTest {
         Assertions.assertNotNull(((Lecturer) staff1).getModuleSet());
     }
 
-    private void validateTerminateStaff(){
+    private void validateTerminateStaff() {
         System.out.println("Validate when we try to terminate a invalid staffID.");
         try {
             staffManager.terminateStaff(StaffID.getInstance());
@@ -234,13 +260,13 @@ public class StaffManagerTest {
         }
     }
 
-    private void validateGetAllStaff(){
+    private void validateGetAllStaff() {
         //validate staff having same Name but staffType as different can be allowed
         System.out.println("validate Get all staff return expected output.");
         Assertions.assertEquals(staffManager.getAllStaff().size(), 9);
     }
 
-    private void validateNoOfStaff(){
+    private void validateNoOfStaff() {
         //validate staff having same Name but staffType as different can be allowed
         System.out.println("validate Get number of matching staff return expected output.");
         Assertions.assertEquals(staffManager.noOfStaff("Lecturer"), 5);
@@ -253,7 +279,6 @@ public class StaffManagerTest {
 
         System.out.println("Validate when user send an invalid staff type it should return 0");
         Assertions.assertEquals(staffManager.noOfStaff("Assistant"), 0);
-
 
 
     }

@@ -73,7 +73,7 @@ public abstract class AbstractStaff implements Staff {
      * @return the Name object
      */
     public Name getName() {
-        return this.name;
+        return new Name(this.name.getFirstName(), this.name.getLastName());
     }
 
     /**
@@ -87,16 +87,6 @@ public abstract class AbstractStaff implements Staff {
     }
 
     /**
-     * Returns the smart card.
-     * All staff must have a smart card
-     *
-     * @return the SmartCard object
-     */
-    public SmartCard getSmartCard() {
-        return this.smartCard;
-    }
-
-    /**
      * Returns the Staff employment status.
      * a Staff can be either on Permanent or fixed contract
      *
@@ -107,9 +97,19 @@ public abstract class AbstractStaff implements Staff {
     }
 
     /**
+     * Returns the smart card.
+     * All staff must have a smart card
+     *
+     * @return the SmartCard object
+     */
+    public SmartCard getSmartCard() {
+        return this.smartCard;
+    }
+
+    /**
      * @param smartCard , expect smart card object
      */
     public void setSmartCard(SmartCard smartCard) {
-        this.smartCard = smartCard;
+        this.smartCard = new SmartCard(smartCard.getEmploymentStatus(), smartCard.getName(), smartCard.getDateOfBirth());
     }
 }

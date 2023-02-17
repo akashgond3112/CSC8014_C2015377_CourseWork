@@ -1,0 +1,2 @@
+CSC8011, Introduction to Software Development, akash, 10
+CSC8012, Software Development Techniques and Tools, 1, 10

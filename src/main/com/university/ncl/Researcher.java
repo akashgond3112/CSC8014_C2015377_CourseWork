@@ -23,8 +23,8 @@ public final class Researcher extends AbstractStaff {
     /**
      * @see AbstractStaff#AbstractStaff(String, String, String, String)
      */
-    public Researcher(String firstName, String lastName, String staffType,String employmentStatus) {
-        super( firstName,  lastName, staffType, employmentStatus);
+    public Researcher(String firstName, String lastName, String staffType, String employmentStatus) {
+        super(firstName, lastName, staffType, employmentStatus);
     }
 
     public String getRESEARCHER() {
@@ -46,7 +46,7 @@ public final class Researcher extends AbstractStaff {
 
     public void setStudent(Name name) {
         if (!studentSupervised.contains(name)) {
-            studentSupervised.add(name);
+            studentSupervised.add(new Name(name.getFirstName(), name.getLastName()));
             totalNoOfStudent++;
         } else {
             System.out.println(name.toString() + " is already assigned to the Lectures , so now skipping the student.");
@@ -76,7 +76,7 @@ public final class Researcher extends AbstractStaff {
      * a method to return the list of students who are supervised by a researcher
      */
     public Set<Name> getStudentSupervised() {
-        return studentSupervised;
+        return new HashSet<Name>(this.studentSupervised);
     }
 
 }
