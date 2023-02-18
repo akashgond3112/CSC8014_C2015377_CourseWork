@@ -17,16 +17,24 @@ public class ResearcherTest {
     static final StaffManager staffManager = new StaffManager();
 
     public static void validateResearcherClass() {
-        Set<Module> modules = staffManager.readInModules("modules.txt");
+        Set<Name> students = staffManager.readInStudents("modules.txt");
         calendar.set(1992, Calendar.APRIL, 30);
         Staff staff1 = staffManager.employStaff("Kirby", "Davy", calendar.getTime(), "Researcher", "permanent");
-        Staff staff2 =staffManager.employStaff("Cassie", "Kathleen", calendar.getTime(), "Researcher", "fixed");
+        Staff staff2 = staffManager.employStaff("Cassie", "Kathleen", calendar.getTime(), "Researcher", "fixed");
 
         Researcher researcher1 = (Researcher) staff1;
         System.out.println("Validate Max student supervised for Researcher is initially 0");
 
+        System.out.println("Validate Researcher max supervised student will be 10.");
+        staffManager.addData(staff1.getStaffID(), null, students);
+        Assertions.assertEquals(10, researcher1.getTotalNoOfStudent());
+
+        System.out.println("Validate is Researcher assigned with enough students");
+        Assertions.assertTrue(researcher1.isMaxNoOfStudentSupervised());
+
         System.out.println("Validate Researcher employment status");
         Assertions.assertEquals("permanent", staff1.getStaffEmploymentStatus());
+        Assertions.assertEquals("fixed", staff2.getStaffEmploymentStatus());
     }
 
     public static void main(String[] args) {
