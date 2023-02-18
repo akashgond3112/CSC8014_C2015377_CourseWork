@@ -296,6 +296,10 @@ public class StaffManager {
         return staffs.get(staffID);
     }
 
+    /**
+     * @param input , expect the string which need to be validated
+     * @return ,  if given input is integer e.g. "12345" return true else false
+     */
     public boolean validateIfProvidedInputIsInteger(String input) {
         int value = 0;
         try {

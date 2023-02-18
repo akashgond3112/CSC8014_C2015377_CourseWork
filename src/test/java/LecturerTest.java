@@ -44,7 +44,7 @@ public class LecturerTest {
 
         System.out.println("Validate lecturer employment status");
         Assertions.assertEquals("permanent", staff1.getStaffEmploymentStatus());
-        Assertions.assertEquals("fixed", staff1.getStaffEmploymentStatus());
+        Assertions.assertEquals("fixed", staff3.getStaffEmploymentStatus());
     }
 
     public static void main(String[] args) {

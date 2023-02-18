@@ -3,9 +3,18 @@ package main.com.university.ncl;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.InputMismatchException;
-import java.util.Objects;
 
-public class SmartCard {
+
+/**
+ * @author akash.gond
+ * @Project Learning
+ * @Date 03022023
+ * Copyright (C) 2023 Newcastle University, UK
+ * ImmutableBook - immutable version of SmartCard that prevents
+ * modification of internal state through references
+ * to private member fields.
+ */
+public final class SmartCard {
 
     final static String PERMANENT = "permanent";
     final static String FIXED = "fixed";
@@ -19,7 +28,7 @@ public class SmartCard {
     public SmartCard(String employmentStatus, Name name, Date dob) {
         this.employmentStatus = employmentStatus;
         this.name = new Name(name.getFirstName(), name.getLastName());
-        this.dateOfBirth = (Date) dob.clone();
+        this.dateOfBirth = new Date(dob.getTime());
         this.dateOfIssue = Calendar.getInstance().getTime();
         this.smartCardNumber = SmartCardNumber.getInstance(this.name.getFirstName(), this.name.getLastName(), this.dateOfIssue);
         setExpiryDate();
@@ -32,22 +41,39 @@ public class SmartCard {
         return (Date) this.dateOfExpiry.clone();
     }
 
+    /**
+     * @return which returns the employment status of the staff
+     */
     public String getEmploymentStatus() {
         return employmentStatus;
     }
 
+    /**
+     * @return which Name of the staff
+     * @see main.com.university.ncl.Name
+     */
     public Name getName() {
         return new Name(this.name.getFirstName(), this.name.getLastName());
     }
 
+    /**
+     * @return which SmartCardNumber of the staff
+     * @see main.com.university.ncl.SmartCardNumber
+     */
     public SmartCardNumber getSmartCardNumber() {
-        return this.smartCardNumber;
+        return smartCardNumber;
     }
 
+    /**
+     * @return , Date of birth for the staff
+     */
     public Date getDateOfBirth() {
         return (Date) this.dateOfBirth.clone();
     }
 
+    /**
+     * @return , Date of issue of the smart card
+     */
     public Date getDateOfIssue() {
         return (Date) this.dateOfIssue.clone();
     }

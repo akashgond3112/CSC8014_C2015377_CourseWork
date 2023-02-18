@@ -8,11 +8,13 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/com/university/ncl/AbstractStaff.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/com/university/ncl/AbstractStaff.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/com/university/ncl/Lecturer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/com/university/ncl/Lecturer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/com/university/ncl/Module.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/com/university/ncl/Module.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/com/university/ncl/Name.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/com/university/ncl/Name.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/com/university/ncl/Researcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/com/university/ncl/Researcher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/com/university/ncl/SmartCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/com/university/ncl/SmartCard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/com/university/ncl/SmartCardNumber.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/com/university/ncl/SmartCardNumber.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/com/university/ncl/StaffID.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/com/university/ncl/StaffID.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/com/university/ncl/StaffManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/com/university/ncl/StaffManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/StaffManagerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/StaffManagerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,6 +29,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -40,31 +47,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/home/akash.gond/IdeaProjects/CSC8014_C2015377_CourseWork",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/akash.gond/IdeaProjects/CSC8014_C2015377_CourseWork&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.StaffManagerTest">
+  <component name="RunManager" selected="Application.NameTest">
     <configuration name="LecturerTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="test.java.LecturerTest" />
       <module name="CSC8014_C2015377_CourseWork" />
@@ -106,9 +113,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.StaffManagerTest" />
-        <item itemvalue="Application.LecturerTest" />
         <item itemvalue="Application.NameTest" />
+        <item itemvalue="Application.LecturerTest" />
+        <item itemvalue="Application.StaffManagerTest" />
       </list>
     </recent_temporary>
   </component>

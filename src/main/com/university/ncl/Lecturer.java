@@ -10,6 +10,13 @@ import java.util.Set;
  * @Project Learning
  * @Date 322023
  * Copyright (C) 2023 Newcastle University, UK
+ * Lecturer -   lecturers can teach on the different modules
+ * whereas researchers cannot.
+ * This Lecturer can only be instantiated by classes in
+ * this same package. Use the AbstractStaff.getInstance("Lecturer")
+ * to get an instance.
+ * package-private class definition
+ * cannot be imported to other packages
  */
 public final class Lecturer extends AbstractStaff {
 
@@ -24,9 +31,12 @@ public final class Lecturer extends AbstractStaff {
     private final Set<Module> moduleSet = new HashSet<>();
 
     /**
-     * @see AbstractStaff#AbstractStaff(String, String, String, String)
+     * @see AbstractStaff#AbstractStaff(String, String, String, String, Date)
+     * package-private constructor cannot be directly instantiated by
+     * clients outside this package.
+     * Use AbstractStaff.getInstance("Lecturer") instead.
      */
-    public Lecturer(String firstName, String lastName, String staffType, String employmentStatus, Date dob) {
+    Lecturer(String firstName, String lastName, String staffType, String employmentStatus, Date dob) {
         super(firstName, lastName, staffType, employmentStatus, dob);
     }
 
@@ -36,8 +46,8 @@ public final class Lecturer extends AbstractStaff {
      *                                    > First check if the module set is not null.
      *                                    > Always check the total credits for lecturer is less than the max credits, if yes add the module.
      *                                    > Once the max credits is reached throw the exception.
-     * @throws NullPointerException   if accountType is null
-     * @throws InputMismatchException if Lecturer is already assigned with max no. of credits!
+     * @throws NullPointerException if moduleSet is null
+     * @see main.com.university.ncl.Module
      */
     public void setModuleSet(Set<Module> moduleSet) {
         if (moduleSet == null)
@@ -84,14 +94,18 @@ public final class Lecturer extends AbstractStaff {
         return this.totalCredits == MAX_CREDITS;
     }
 
+    /**
+     * @return , utility method to allow to know total credits for the lecturer object.
+     */
     public int getTotalCredits() {
         return this.totalCredits;
     }
 
     /**
      * @return Set<Module></Module>
-     * a method to list the modules that a lecturer is assigned to. A module consists
-     * of a name (e.g. Introduction to Software Development), a module code (e.g.
+     * @see main.com.university.ncl.Module
+     * a method to list the modules that a lecturer is assigned to.
+     * A module consists of a name (e.g. Introduction to Software Development), a module code (e.g.
      * CSC8011), a semester (e.g. 1) and the number of credits associated with the
      * module (e.g. 10)
      */
