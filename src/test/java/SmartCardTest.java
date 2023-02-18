@@ -4,7 +4,6 @@ import main.com.university.ncl.*;
 import main.com.university.ncl.Module;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Set;
 
 /**
@@ -15,7 +14,7 @@ import java.util.Set;
  */
 public class SmartCardTest {
     static final Calendar calendar = Calendar.getInstance();
-    static final StaffManager staffManager = new StaffManager();
+    static final StaffManager staffManager = StaffManager.getInstance();
 
     public static void validateSmartCardForLecturer() {
         Set<Module> modules = staffManager.readInModules("modules.txt");

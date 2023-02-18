@@ -14,7 +14,7 @@ import java.util.Set;
  */
 public class ResearcherTest {
     static final Calendar calendar = Calendar.getInstance();
-    static final StaffManager staffManager = new StaffManager();
+    static final StaffManager staffManager = StaffManager.getInstance();
 
     public static void validateResearcherClass() {
         Set<Name> students = staffManager.readInStudents("modules.txt");

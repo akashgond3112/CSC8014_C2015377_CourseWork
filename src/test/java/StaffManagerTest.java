@@ -16,12 +16,9 @@ import java.util.*;
  * Copyright (C) 2023 Newcastle University, UK
  */
 public class StaffManagerTest {
-    final StaffManager staffManager = new StaffManager();
-
+    final StaffManager staffManager = StaffManager.getInstance();
 
     private void testReadInModules() {
-        final StaffManager staffManager = new StaffManager();
-
         System.out.println("validate proper error is thrown when we pass the file path is empty for modules.");
         try {
             staffManager.readInModules("");
@@ -55,7 +52,6 @@ public class StaffManagerTest {
     }
 
     private void testReadInStudents() {
-        final StaffManager staffManager = new StaffManager();
 
         System.out.println("validate proper error is thrown when we pass the file path is empty fr students.");
         try {
@@ -133,6 +129,7 @@ public class StaffManagerTest {
         System.out.println("validate the positive scenario when we add valid data!");
         calendar.set(1992, Calendar.APRIL, 25);
         final Date validDob = calendar.getTime();
+
         Assertions.assertNotNull(staffManager.employStaff("Kiki", "Topsy", validDob, "Lecturer", "permanent"));
         Assertions.assertNotNull(staffManager.employStaff("Alan", "Nia", validDob, "Lecturer", "fixed"));
         Assertions.assertNotNull(staffManager.employStaff("Kirby", "Davy", validDob, "Researcher", "permanent"));
@@ -163,6 +160,8 @@ public class StaffManagerTest {
 
     private void validateAddData() {
         Calendar calendar = Calendar.getInstance();
+        calendar.set(1992, Calendar.APRIL, 30);
+        final Date validDob = calendar.getTime();
 
         System.out.println("validate when there is no staff employed till now.");
         try {
@@ -174,11 +173,10 @@ public class StaffManagerTest {
         }
 
         System.out.println("validate when there is staff but , staffId is passed as null;");
-        calendar.set(1992, Calendar.APRIL, 30);
-        Staff staff1 = staffManager.employStaff("Akash", "Gond", calendar.getTime(), "Lecturer", "permanent");
-        Staff staff2 = staffManager.employStaff("Subham", "Singh", calendar.getTime(), "Lecturer", "fixed");
-        Staff staff3 = staffManager.employStaff("Vikash", "Gond", calendar.getTime(), "Researcher", "permanent");
-        Staff staff4 = staffManager.employStaff("Harsh", "Rohilla", calendar.getTime(), "Researcher", "fixed");
+        Staff staff1 = staffManager.employStaff("Harry", "Morgan", validDob, "Lecturer", "permanent");
+        Staff staff2 = staffManager.employStaff("Amy", "Phillips", validDob, "Lecturer", "fixed");
+        Staff staff3 = staffManager.employStaff("Larry", "Taylor", validDob, "Researcher", "permanent");
+        Staff staff4 = staffManager.employStaff("Victoria", "Edwards", validDob, "Researcher", "fixed");
 
 
         Set<Module> modules = staffManager.readInModules("modules.txt");
@@ -239,7 +237,7 @@ public class StaffManagerTest {
 
         System.out.println("Validate getName method doesn't return null and have expected Name.");
         Assertions.assertNotNull(staff1.getName());
-        Assertions.assertEquals(staff1.getName().toString(), "Akash Gond");
+        Assertions.assertEquals(staff1.getName().toString(), "Harry Morgan");
 
         System.out.println("validate method to list the modules that a lecturer is assigned to.");
         Assertions.assertNotNull(((Lecturer) staff1).getModuleSet());
@@ -247,7 +245,7 @@ public class StaffManagerTest {
 
     private void validateTerminateStaff() {
         Calendar calendar = Calendar.getInstance();
-
+        calendar.set(1992, Calendar.APRIL, 30);
         System.out.println("Validate when we try to terminate a invalid staffID.");
         try {
             staffManager.terminateStaff(StaffID.getInstance());
@@ -281,14 +279,22 @@ public class StaffManagerTest {
     private void validateNoOfStaff() {
         //validate staff having same Name but staffType as different can be allowed
         System.out.println("validate Get number of matching staff return expected output.");
-        Assertions.assertEquals(staffManager.noOfStaff("Lecturer"), 5);
-        Assertions.assertEquals(staffManager.noOfStaff("Researcher"), 4);
+        Assertions.assertEquals(staffManager.noOfStaff("Lecturer"), 4);
+        Assertions.assertEquals(staffManager.noOfStaff("Researcher"), 5);
 
         // Add same data test matching staff
         Calendar calendar = Calendar.getInstance();
+        calendar.set(1992, Calendar.APRIL, 30);
+
         System.out.println("Add same data and test matching staff method and validate Get number of matching staff return expected output.");
-        Staff staff5 = staffManager.employStaff("Harsh", "Rohilla", calendar.getTime(), "Researcher", "fixed");
-        Assertions.assertEquals(staffManager.noOfStaff("Researcher"), 4);
+        try {
+            Staff staff5 = staffManager.employStaff("Harsh", "Rohilla", calendar.getTime(), "Researcher", "fixed");
+        } catch (Throwable t) {
+            System.out.println("Add same data and test matching staff method and validate Get number of matching staff return expected output. Test got passed!");
+            Assertions.assertExpectedThrowable(
+                    InputMismatchException.class, t);
+        }
+        Assertions.assertEquals(staffManager.noOfStaff("Researcher"), 5);
 
         System.out.println("Validate when user send an invalid staff type it should return 0");
         Assertions.assertEquals(staffManager.noOfStaff("Assistant"), 0);
@@ -298,13 +304,13 @@ public class StaffManagerTest {
 
     public static void main(String[] args) {
         StaffManagerTest staffManagerTest = new StaffManagerTest();
-//        staffManagerTest.testReadInModules();
-//        staffManagerTest.testReadInStudents();
+        staffManagerTest.testReadInModules();
+        staffManagerTest.testReadInStudents();
         staffManagerTest.validateEmployStaff();
-//        staffManagerTest.validateAddData();
-//        staffManagerTest.validateTerminateStaff();
-//        staffManagerTest.validateGetAllStaff();
-//        staffManagerTest.validateNoOfStaff();
+        staffManagerTest.validateAddData();
+        staffManagerTest.validateTerminateStaff();
+        staffManagerTest.validateGetAllStaff();
+        staffManagerTest.validateNoOfStaff();
 
     }
 

@@ -17,6 +17,20 @@ public class StaffManager {
     Set<Module> moduleSet = new HashSet<>();
     Set<Name> studentNameSet = new HashSet<>();
 
+    // Singleton
+    static StaffManager staffManager;
+
+    private StaffManager() {
+    }
+
+    public static StaffManager getInstance() {
+
+        if (staffManager == null) {
+            staffManager = new StaffManager();
+        }
+        return staffManager;
+    }
+
 
     /**
      * @param path , expect the file path to be provided

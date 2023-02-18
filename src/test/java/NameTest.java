@@ -16,7 +16,7 @@ import java.util.Set;
 public class NameTest {
 
     static final Calendar calendar = Calendar.getInstance();
-    static final StaffManager staffManager = new StaffManager();
+    static final StaffManager staffManager = StaffManager.getInstance();
 
     public static void validateNameClass() {
         calendar.set(1992, Calendar.APRIL, 30);
