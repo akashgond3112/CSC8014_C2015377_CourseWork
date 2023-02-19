@@ -91,6 +91,9 @@ public class StaffManager {
                 String line = fileInput.nextLine();
                 String[] lineArray = line.split(" "); // split the sentences using String split inbuilt method.
 
+                if (lineArray.length < 2)
+                    throw new InputMismatchException("Please check the name input data it expect both first and last name!." + Arrays.toString(lineArray));
+
                 // adding the Name object to the set of the students.
                 studentNameSet.add(new Name(lineArray[0], lineArray[1]));
             }
