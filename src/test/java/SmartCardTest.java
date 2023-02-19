@@ -34,12 +34,14 @@ public class SmartCardTest {
 
         System.out.println("Validate (Lecturer) date of expiry for staff is equal for both employment status permanent and fixed!");
         Calendar tmpCalendar = Calendar.getInstance();
-        tmpCalendar.setTime(smartCard1.getDateOfIssue());
 
+        tmpCalendar.setTime(smartCard1.getDateOfIssue());
         tmpCalendar.add(Calendar.YEAR, 10);
-        Assertions.assertEquals(smartCard1.getExpiryDate(), tmpCalendar.getTime().clone());
-        tmpCalendar.add(Calendar.YEAR, -8);
-        Assertions.assertEquals(smartCard2.getExpiryDate(), tmpCalendar.getTime().clone());
+        Assertions.assertEquals(smartCard1.getExpiryDate(), tmpCalendar.getTime());
+
+        tmpCalendar.setTime(smartCard2.getDateOfIssue());
+        tmpCalendar.add(Calendar.YEAR, 2);
+        Assertions.assertEquals(smartCard2.getExpiryDate(), tmpCalendar.getTime());
 
         System.out.println("Validate (Lecturer) date of issue for staff is not null for both employment status permanent and fixed!");
         Assertions.assertNotNull(smartCard1.getDateOfIssue());
@@ -85,11 +87,13 @@ public class SmartCardTest {
 
         System.out.println("Validate (Researcher) date of expiry for staff is equal for both employment status permanent and fixed!");
         Calendar tmpCalendar = Calendar.getInstance();
-        tmpCalendar.setTime(smartCard1.getDateOfIssue());
 
+        tmpCalendar.setTime(smartCard1.getDateOfIssue());
         tmpCalendar.add(Calendar.YEAR, 10);
         Assertions.assertEquals(smartCard1.getExpiryDate(), tmpCalendar.getTime().clone());
-        tmpCalendar.add(Calendar.YEAR, -8);
+
+        tmpCalendar.setTime(smartCard2.getDateOfIssue());
+        tmpCalendar.add(Calendar.YEAR, 2);
         Assertions.assertEquals(smartCard2.getExpiryDate(), tmpCalendar.getTime().clone());
 
         System.out.println("Validate (Researcher) date of issue for staff is not null for both employment status permanent and fixed!");
