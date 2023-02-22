@@ -76,14 +76,6 @@ public final class Lecturer extends AbstractStaff {
         }
     }
 
-//    /**
-//     * @return the staff type
-//     * a method to get the staff type (either Lecturer, or Researcher).
-//     */
-//    @Override
-//    public String getStaffType() {
-//        return LECTURER;
-//    }
 
     /**
      * @return boolean
