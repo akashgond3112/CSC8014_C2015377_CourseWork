@@ -1,4 +1,4 @@
-package main.com.university.ncl;
+package main.com.university.ncl.model;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -50,7 +50,7 @@ public final class SmartCard {
 
     /**
      * @return which Name of the staff
-     * @see main.com.university.ncl.Name
+     * @see Name
      */
     public Name getName() {
         return new Name(this.name.getFirstName(), this.name.getLastName());
@@ -58,7 +58,7 @@ public final class SmartCard {
 
     /**
      * @return which SmartCardNumber of the staff
-     * @see main.com.university.ncl.SmartCardNumber
+     * @see SmartCardNumber
      */
     public SmartCardNumber getSmartCardNumber() {
         return smartCardNumber;

@@ -1,7 +1,9 @@
 package test.java;
 
 import main.com.university.ncl.*;
-import main.com.university.ncl.Module;
+import main.com.university.ncl.model.Name;
+import main.com.university.ncl.staff.Researcher;
+import main.com.university.ncl.staff.Staff;
 
 import java.util.Calendar;
 import java.util.Set;

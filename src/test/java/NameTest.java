@@ -1,11 +1,9 @@
 package test.java;
 
-import main.com.university.ncl.Module;
-import main.com.university.ncl.Staff;
+import main.com.university.ncl.staff.Staff;
 import main.com.university.ncl.StaffManager;
 
 import java.util.Calendar;
-import java.util.Set;
 
 /**
  * @author akash.gond

@@ -1,8 +1,9 @@
-package main.com.university.ncl;
+package main.com.university.ncl.staff;
+
+import main.com.university.ncl.model.Module;
 
 import java.util.Date;
 import java.util.HashSet;
-import java.util.InputMismatchException;
 import java.util.Set;
 
 /**
@@ -26,7 +27,6 @@ public final class Lecturer extends AbstractStaff {
     */
 
     final static int MAX_CREDITS = 40;
-    final static String LECTURER = "Lecturer";
     private int totalCredits;
     private final Set<Module> moduleSet = new HashSet<>();
 
@@ -47,7 +47,7 @@ public final class Lecturer extends AbstractStaff {
      *                                    > Always check the total credits for lecturer is less than the max credits, if yes add the module.
      *                                    > Once the max credits is reached throw the exception.
      * @throws NullPointerException if moduleSet is null
-     * @see main.com.university.ncl.Module
+     * @see Module
      */
     public void setModuleSet(Set<Module> moduleSet) {
         if (moduleSet == null)
@@ -64,7 +64,7 @@ public final class Lecturer extends AbstractStaff {
 
     /**
      * @param module , Expect Module Object
-     * @see main.com.university.ncl.Module
+     * @see Module
      * First check if the module is already added to the set, if not add it.
      */
     public void setModule(Module module) {
@@ -76,14 +76,14 @@ public final class Lecturer extends AbstractStaff {
         }
     }
 
-    /**
-     * @return the staff type
-     * a method to get the staff type (either Lecturer, or Researcher).
-     */
-    @Override
-    public String getStaffType() {
-        return LECTURER;
-    }
+//    /**
+//     * @return the staff type
+//     * a method to get the staff type (either Lecturer, or Researcher).
+//     */
+//    @Override
+//    public String getStaffType() {
+//        return LECTURER;
+//    }
 
     /**
      * @return boolean
@@ -103,7 +103,7 @@ public final class Lecturer extends AbstractStaff {
 
     /**
      * @return Set<Module></Module>
-     * @see main.com.university.ncl.Module
+     * @see Module
      * a method to list the modules that a lecturer is assigned to.
      * A module consists of a name (e.g. Introduction to Software Development), a module code (e.g.
      * CSC8011), a semester (e.g. 1) and the number of credits associated with the

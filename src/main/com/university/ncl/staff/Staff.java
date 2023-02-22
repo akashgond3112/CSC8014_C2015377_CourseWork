@@ -1,6 +1,10 @@
-package main.com.university.ncl;
+package main.com.university.ncl.staff;
 
-/** 
+import main.com.university.ncl.model.Name;
+import main.com.university.ncl.model.SmartCard;
+import main.com.university.ncl.model.StaffID;
+
+/**
  * Staff - interface to university staff.
  *
  * @author Rouaa Yassin Kassab

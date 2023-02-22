@@ -1,4 +1,4 @@
-package main.com.university.ncl;
+package main.com.university.ncl.model;
 
 import java.util.HashMap;
 import java.util.Map;

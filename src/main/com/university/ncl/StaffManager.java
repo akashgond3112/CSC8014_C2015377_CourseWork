@@ -1,9 +1,17 @@
 package main.com.university.ncl;
 
+import main.com.university.ncl.model.Module;
+import main.com.university.ncl.model.Name;
+import main.com.university.ncl.model.SmartCard;
+import main.com.university.ncl.model.StaffID;
+import main.com.university.ncl.staff.AbstractStaff;
+import main.com.university.ncl.staff.Lecturer;
+import main.com.university.ncl.staff.Researcher;
+import main.com.university.ncl.staff.Staff;
+
 import java.io.FileNotFoundException;
 import java.util.*;
 import java.io.File;
-import java.util.stream.Collectors;
 
 
 /**
@@ -13,6 +21,8 @@ import java.util.stream.Collectors;
  */
 public class StaffManager {
 
+    final static String PERMANENT = "permanent";
+    final static String FIXED = "fixed";
     HashMap<StaffID, Staff> staffs = new HashMap<>();
     Set<Module> moduleSet = new HashSet<>();
     Set<Name> studentNameSet = new HashSet<>();
@@ -141,7 +151,7 @@ public class StaffManager {
             throw new InputMismatchException("Staff type is not matching!");
 
         // validate employmentStatus can be of type
-        if (!(employmentStatus.equals(SmartCard.PERMANENT) || employmentStatus.equals(SmartCard.FIXED)))
+        if (!(employmentStatus.equals(PERMANENT) || employmentStatus.equals(FIXED)))
             throw new InputMismatchException("Employment type is not matching!");
 
         // validate DOB

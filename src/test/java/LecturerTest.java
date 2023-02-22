@@ -1,8 +1,8 @@
 package test.java;
 
-import main.com.university.ncl.Lecturer;
-import main.com.university.ncl.Module;
-import main.com.university.ncl.Staff;
+import main.com.university.ncl.staff.Lecturer;
+import main.com.university.ncl.model.Module;
+import main.com.university.ncl.staff.Staff;
 import main.com.university.ncl.StaffManager;
 
 import java.util.Calendar;

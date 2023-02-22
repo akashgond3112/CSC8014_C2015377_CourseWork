@@ -1,4 +1,7 @@
-package main.com.university.ncl;
+package main.com.university.ncl.staff;
+
+import main.com.university.ncl.model.Name;
+import main.com.university.ncl.model.Module;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -24,7 +27,6 @@ public final class Researcher extends AbstractStaff {
      *  */
 
     final static int MAX_SUPERVISE_STUDENTS = 10;
-    final static String RESEARCHER = "Researcher";
     private int totalNoOfStudent;
     private final Set<Name> studentSupervised = new HashSet<>();
 
@@ -45,7 +47,7 @@ public final class Researcher extends AbstractStaff {
      *                                        > Always check the total No Of Student for Researcher is less than the max supervised student, if yes add the student.
      *                                        > Once the max supervised student is reached throw the exception.
      * @throws NullPointerException if moduleSet is null
-     * @see main.com.university.ncl.Module
+     * @see Module
      */
     public void setStudentSupervised(Set<Name> studentSupervised) {
         if (studentSupervised == null)
@@ -62,7 +64,7 @@ public final class Researcher extends AbstractStaff {
 
     /**
      * @param name , Expect Name Object
-     * @see main.com.university.ncl.Name
+     * @see Name
      * First check if the Name is already added to the set, if not add it.
      */
     public void setStudent(Name name) {
@@ -72,15 +74,6 @@ public final class Researcher extends AbstractStaff {
         } else {
             System.out.println(name.toString() + " is already assigned to the Researcher , so now skipping the student.");
         }
-    }
-
-    /**
-     * @return the staff type
-     * a method to get the staff type (either Lecturer, or Researcher).
-     */
-    @Override
-    public String getStaffType() {
-        return RESEARCHER;
     }
 
     /**

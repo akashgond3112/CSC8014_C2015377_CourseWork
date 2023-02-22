@@ -1,12 +1,13 @@
 package test.java;
 
 import main.com.university.ncl.*;
-import main.com.university.ncl.Module;
+import main.com.university.ncl.model.Module;
+import main.com.university.ncl.model.Name;
+import main.com.university.ncl.model.StaffID;
+import main.com.university.ncl.staff.Lecturer;
+import main.com.university.ncl.staff.Staff;
 
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.*;
 
 /**
